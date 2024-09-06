@@ -1,0 +1,33 @@
+//For planet and ship "buttons"
+
+class PicButton extends Button
+{ 
+  public PicButton( float x, float y, int type )
+  {
+    super(x, y, adjustFloat(300,'x'), adjustFloat(300,'y'), type, "");
+  }
+  
+  void drawButton()
+  {
+    fill(200);
+    textSize(20);
+    textAlign(CENTER);
+    if( col == 0 )
+    {
+      image( merchant[currentPlayer].currentPlanet.picMed, xPos, yPos );
+      text("Visit "+merchant[currentPlayer].currentPlanet, xPos, yPos+150 );
+    }
+    else
+    {
+      image( merchant[currentPlayer].ship.picMed, xPos, yPos );
+      text("Blast Off", xPos, yPos+150 );
+    }
+  }
+  
+  boolean mouseOnButton()
+  {
+    if( dist( mouseX, mouseY, xPos, yPos ) < (xSize+ySize)/4 )
+      return true;
+    return false;
+  }
+}
