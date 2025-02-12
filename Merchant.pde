@@ -14,6 +14,8 @@ class Merchant
   int insuranceBase = 15; //increases by 10 for every ship upgrade
   boolean insured = false;
   
+  int gasBase = 2;
+  
   int bankAccount;
   int bankInterest = 1;
   int bankLastEarned = 0;
@@ -30,6 +32,11 @@ class Merchant
   
   int passTax; //tax on passengers
   int stuffTax; //tax on commodities (import and export)
+  
+  //int addsCost;
+  int passengerAdd = 2; //2-8
+  int goodsAdd = 9;     //9-15
+  boolean paidForAdds;
   
   ArrayList<Integer> netWorthHistory = new ArrayList<Integer>();
   
@@ -88,6 +95,53 @@ class Merchant
     //26-26000
     //32-32000
     //43-43000
+  }
+  
+  int gasCost()
+  {
+    return gasMulti*gasBase;
+  }
+  
+  boolean canFillGas()
+  {
+    return( money > (gasCost()*(ship.fuelCapacity-ship.fuel)) );
+  }
+  
+  void fillGas()
+  {
+    money -= gasCost()*(ship.fuelCapacity-ship.fuel);
+    ship.fuel = ship.fuelCapacity;
+  }
+  
+  String gasFraction()
+  {
+    return ship.fuel + "/" + ship.fuelCapacity;
+  }
+  
+  int addsCost()
+  {
+    return advertizeCost(passengerAdd)+advertizeCost(goodsAdd);
+  }
+  
+  void buyAdds()
+  {
+      advertizeButton[passengerAdd].col = 4;
+      advertizeButton[goodsAdd].col = 4;
+      mainButtonRight[1].col = 0;
+      //addsCost = addsCost();
+      money -= addsCost();
+      paidForAdds = true;
+  }
+  
+  void refundAddsCost()
+  {
+    if(!paidForAdds) return;
+    
+    money += addsCost();
+    //addsCost = 0;
+    paidForAdds = false;
+    //passengerAdd = 2;
+    //goodsAdd = 9;
   }
   
   void pickUpPassengers()

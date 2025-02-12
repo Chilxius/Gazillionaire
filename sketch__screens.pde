@@ -21,7 +21,9 @@ Button [] flrrbButton = new Button[3];
 Button [] paymentButton = new Button[2];
 Button [] insureButton = new Button[2];
 Button [] passengerButton = new Button[3];
+Button [] advertizeButton = new Button[16];
 Button [] visitButton = new Button[9];
+Button [] gasButton = new Button[3];
 
 String input = ""; //for keyboard input
 char qwerty [] = {'Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M','_'};
@@ -73,6 +75,8 @@ void setupScreenData()
   screenPic[4] = loadImage("tax.png");       screenPic[4].resize(0,adjustInt(650,'y') ); //Tax Crab
   screenPic[5] = loadImage("insurance.png"); screenPic[5].resize(0,adjustInt(650,'y') ); //Burning Ship
   screenPic[6] = loadImage("passengers.png");screenPic[6].resize(0,adjustInt(600,'y') ); //Passeners
+  screenPic[7] = loadImage("billboardSquare.png"); screenPic[7].resize(0,adjustInt(650,'y') ); //Advertizing
+  screenPic[8] = loadImage("gasStation.png");screenPic[8].resize(0,adjustInt(650,'y') ); //Gas
   
   mainButtonLeft[0] = new Button( screenWidth*1.1/8, screenHeight*1/7, adjustFloat(screenWidth/3.9,'x'), adjustFloat(screenHeight/10,'y'), 0, "Ship Info");
   mainButtonLeft[1] = new Button( screenWidth*1.1/8, screenHeight*2/7, adjustFloat(screenWidth/3.9,'x'), adjustFloat(screenHeight/10,'y'), 0, "Warehouse");
@@ -119,6 +123,31 @@ void setupScreenData()
   passengerButton[0] = new Button( screenWidth*1/6, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 5, "<< Back" );
   passengerButton[1] = new Button( screenWidth*2/4, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 0, "Pick Up Passengers" );
   passengerButton[2] = new Button( screenWidth*5/6, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 1, "Set Ticket Price" );
+  
+  advertizeButton[0] = new Button( screenWidth*1/4, screenHeight*9.5/10, screenWidth/2.2, screenHeight/15, 5, "<< Back" );
+  advertizeButton[1] = new Button( screenWidth*3/4, screenHeight*9.5/10, screenWidth/2.2, screenHeight/15, 0, "Place Adds" );
+  
+  advertizeButton[2] = new Button( adjustFloat( 845,'x'), screenHeight*1.5/10, adjustFloat(250,'x'), screenHeight/16, 3, "No Adds" );
+  advertizeButton[3] = new Button( adjustFloat( 845,'x'), screenHeight*2.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Put up Fliers" );
+  advertizeButton[4] = new Button( adjustFloat( 845,'x'), screenHeight*3.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Billboards" );
+  advertizeButton[5] = new Button( adjustFloat( 845,'x'), screenHeight*4.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Sky Writing" );
+  advertizeButton[6] = new Button( adjustFloat( 845,'x'), screenHeight*5.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Social Media" );
+  advertizeButton[7] = new Button( adjustFloat( 845,'x'), screenHeight*6.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Influencers" );
+  advertizeButton[8] = new Button( adjustFloat( 845,'x'), screenHeight*7.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Everything" );
+  
+  advertizeButton[9]  = new Button( adjustFloat( 1135,'x'), screenHeight*1.5/10, adjustFloat(250,'x'), screenHeight/16, 3, "No Adds" );
+  advertizeButton[10] = new Button( adjustFloat( 1135,'x'), screenHeight*2.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Put up Fliers" );
+  advertizeButton[11] = new Button( adjustFloat( 1135,'x'), screenHeight*3.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Billboards" );
+  advertizeButton[12] = new Button( adjustFloat( 1135,'x'), screenHeight*4.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Sky Writing" );
+  advertizeButton[13] = new Button( adjustFloat( 1135,'x'), screenHeight*5.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Social Media" );
+  advertizeButton[14] = new Button( adjustFloat( 1135,'x'), screenHeight*6.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Influencers" );
+  advertizeButton[15] = new Button( adjustFloat( 1135,'x'), screenHeight*7.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Everything" );
+  
+  gasButton[0] = new Button( screenWidth*1/6, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 5, "<< Back" );
+  gasButton[1] = new Button( screenWidth*2/4, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 1, "Buy Fuel" );
+  gasButton[2] = new Button( screenWidth*5/6, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 1, "Fill 'er Up" );
+  
+  //700 - 1280
   
   visitButton[7] = new Button( screenWidth*1/6, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 5, "<< Back" );
   visitButton[0] = new Button( screenWidth*2/3, screenHeight*9.5/10, screenWidth/1.6, screenHeight/15, 0, "Seek Audience at Imperial Tower" );
@@ -559,6 +588,51 @@ void drawPlanetScreen()
   pop();
 }
 
+void drawGasScreen()
+{
+  push();
+  background(#8E3671);
+  
+  //Image
+  fill(200);
+  rectMode(CORNER);
+  imageMode(CORNER);
+  rect( adjustInt(48,'x'), adjustInt(48,'y'), screenPic[0].width+4, screenPic[0].height+4);
+  image( screenPic[8], adjustInt(50,'x'), adjustInt(50,'y') );
+  
+  //Info
+  noStroke();
+  rectMode(CENTER);
+  fill(#2B51A2);
+  rect( adjustInt(1000,'x'), screenHeight*1/5, screenWidth/3, adjustInt(100,'y'), 20 );
+  rect( adjustInt(1000,'x'), screenHeight*2/5, screenWidth/3, adjustInt(100,'y'), 20 );
+  rect( adjustInt(1000,'x'), screenHeight*3/5, screenWidth/3, adjustInt(100,'y'), 20 );
+  rect( adjustInt(1000,'x'), screenHeight*4/5, screenWidth/3, adjustInt(100,'y'), 20 );
+  fill(#6DE5CC);
+  rect( adjustInt(1000,'x'), screenHeight*1.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
+  rect( adjustInt(1000,'x'), screenHeight*2.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
+  rect( adjustInt(1000,'x'), screenHeight*3.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
+  rect( adjustInt(1000,'x'), screenHeight*4.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
+  textSize(35);
+  textAlign(CENTER);
+  fill(0);
+  text( "Niez Kleen Gas Station", adjustInt(1000,'x'), screenHeight/15 );
+  textSize(20);
+  text( "Your Cash", adjustInt(1000,'x'), screenHeight*0.85/5 );
+  text( asCash(merchant[currentPlayer].money), adjustInt(1000,'x'), screenHeight*1.15/5 );
+  text( "Fuel Price Range (per ton)", adjustInt(1000,'x'), screenHeight*1.85/5 );
+  text( asCash(merchant[currentPlayer].gasBase) + " - " + asCash(merchant[currentPlayer].gasBase*1000), adjustInt(1000,'x'), screenHeight*2.15/5 );
+  text( "Fuel Cost (per ton)", adjustInt(1000,'x'), screenHeight*2.85/5 );
+  text( asCash(merchant[currentPlayer].gasCost()), adjustInt(1000,'x'), screenHeight*3.15/5 );
+  text( "Tank", adjustInt(1000,'x'), screenHeight*3.85/5 );
+  text( merchant[currentPlayer].gasFraction(), adjustInt(1000,'x'), screenHeight*4.15/5 );
+  
+  for( Button b: gasButton )
+    b.drawButton();
+    
+  pop();
+}
+
 void drawPassengerScreen()
 {
   push();
@@ -611,6 +685,44 @@ passengers on planet:
   MIN: 1000/price
 */
 
+void drawAdvertizingScreen()
+{
+  push();
+  background(100);
+  
+  //Image
+  fill(200);
+  rectMode(CORNER);
+  imageMode(CORNER);
+  rect( adjustInt(48,'x'), adjustInt(48,'y'), screenPic[5].width+4, screenPic[5].height+4);
+  image( screenPic[7], adjustInt(50,'x'), adjustInt(50,'y') );
+  
+  //Info
+  noStroke();
+  rectMode(CENTER);
+  fill(#624585);
+  rect( adjustInt(845,'x'),  screenHeight*8.53/10, adjustFloat( 250,'x'), adjustInt(80,'y'), 20 );
+  rect( adjustInt(1135,'x'), screenHeight*8.53/10, adjustFloat( 250,'x'), adjustInt(80,'y'), 20 );
+  fill(#ac85c4);
+  rect( adjustInt(845,'x'), screenHeight*8.73/10, adjustFloat( 240,'x'), adjustInt(40,'y'), 20 );
+  rect( adjustInt(1135,'x'), screenHeight*8.73/10, adjustFloat( 240,'x'), adjustInt(40,'y'), 20 );
+  //Text
+  textSize(35);
+  textAlign(CENTER);
+  fill(0);
+  text( "Advertizing", adjustInt(990,'x'), screenHeight/13 );
+  //text( "Commodities", adjustInt(1135,'x'), screenHeight/13 );
+  textSize(20);
+  text( "Passenger", adjustInt(845,'x'), screenHeight*8.325/10 );
+  text( asCash(advertizeCost(merchant[currentPlayer].passengerAdd)), adjustInt(845,'x'), screenHeight*8.8/10 );
+  text( "Commodities", adjustInt(1135,'x'), screenHeight*8.325/10 );
+  text( asCash(advertizeCost(merchant[currentPlayer].goodsAdd)), adjustInt(1135,'x'), screenHeight*8.8/10 );
+  
+  for(Button b: advertizeButton)
+    b.drawButton();
+  pop();
+}
+
 void drawInsuranceScreen()
 {
   push();
@@ -652,7 +764,7 @@ void drawInsuranceScreen()
     text( "Yes", adjustInt(1000,'x'), screenHeight*4.15/5 );
   else
     text( "No", adjustInt(1000,'x'), screenHeight*4.15/5 );
-  
+
   for(Button b: insureButton)
     b.drawButton();
     

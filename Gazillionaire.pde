@@ -29,6 +29,8 @@ import java.util.Collections;
 //File (save/load)
 //Gas
 
+// ! Change all button colors when next player's turn starts ! (main menu, adds)
+
 //Display Data
 Screen currentScreen, nextScreen;
 TypingMode typingMode;
@@ -44,6 +46,7 @@ int playerCount; //Player count (1-6)   HUMAN players - total merchants is alway
 int currentPlayer; //Current turn (0-5)  WILL NOT CORRESPOND TO PLAYER NUMBER, will correspond to turn order
 int currentWeek;
 int insuranceMulti = int(random(100))+1;
+int gasMulti = int(random(100))+1;
 
 //Numpad Data
 boolean numpadUp = false;
@@ -71,6 +74,9 @@ String computerName[] = {"Bennett","Alex","Brett","Todd","James","Alan"};
 //Red words (used for warnings)
 String redWords = "";
 float redWordsTimer = 0;
+
+//Color-changing Button Data
+//boolean [] buttonPressed = {false,false,false,false,false}; //Passenger, Adds, Insurance, Crew, Taxes
 
 //TEST
 //Button testButton;// = new Button(300,300,200,100,color(0,200,0),"Test");
@@ -151,6 +157,10 @@ void draw()
       drawFlrrbScreen();
     break;
     
+    case FUEL:
+      drawGasScreen();
+    break;
+    
     case PLANETSPLASH:
       drawPlanetSplashScreen();
     break;
@@ -161,6 +171,10 @@ void draw()
     
     case PASSENGERS:
       drawPassengerScreen();
+    break;
+    
+    case ADVERTIZE:
+      drawAdvertizingScreen();
     break;
     
     case INSURANCE:
@@ -303,6 +317,31 @@ float adjustFloat( float value, char axis )
   else if( axis == 'y' )
     value = value / 800 * screenHeight;
   return value;
+}
+
+int advertizeCost( int index )
+{
+  switch( index )
+  {
+    case 2: return 0;
+    case 3: return 1000;
+    case 4: return 2000;
+    case 5: return 3000;
+    case 6: return 4000;
+    case 7: return 5000;
+    case 8: return 10000;
+    
+    case 9: return 0;
+    case 10: return 1000;
+    case 11: return 2000;
+    case 12: return 3000;
+    case 13: return 4000;
+    case 14: return 5000;
+    case 15: return 10000;
+  }
+  
+  //Should not reach this
+  return -1;
 }
 
 public void mousePressed()
@@ -550,16 +589,84 @@ public void mousePressed()
     }
     return;
     
+    case FUEL:
+    {
+      if( gasButton[0].mouseOnButton() )
+        currentScreen = Screen.MAIN;
+      //bring up calculator  
+        
+      if( gasButton[2].mouseOnButton() )
+        if( merchant[currentPlayer].canFillGas() )
+          merchant[currentPlayer].fillGas();
+        else
+          redWords("NOT ENOUGH CASH");
+    }
+    return;
+    
     case PASSENGERS:
     {
       if( passengerButton[0].mouseOnButton() )
         currentScreen = Screen.MAIN;
       if( passengerButton[1].mouseOnButton() ) //Pick up passengers
+      {
         merchant[currentPlayer].pickUpPassengers();
+        mainButtonRight[0].col = 0;
+      }
       if( passengerButton[2].mouseOnButton() ) //Set ticket price
       {
         numpadUp = true;
         use = NumpadPurpose.TICKET;
+      }
+    }
+    return;
+    
+    case ADVERTIZE:
+    {
+      if( advertizeButton[0].mouseOnButton() )
+        currentScreen = Screen.MAIN;
+      if( advertizeButton[1].mouseOnButton() )
+      {
+        //Not enough money
+        if( merchant[currentPlayer].money < merchant[currentPlayer].addsCost() )//advertizeCost(merchant[currentPlayer].passengerAdd)+advertizeCost(merchant[currentPlayer].goodsAdd) )
+          redWords("NOT ENOUGH MONEY");
+        else
+        {
+          merchant[currentPlayer].buyAdds();
+          //advertizeButton[merchant[currentPlayer].passengerAdd].col = 4;
+          //advertizeButton[merchant[currentPlayer].goodsAdd].col = 4;
+          //mainButtonRight[1].col = 0;
+          //merchant[currentPlayer].addsCost = merchant[currentPlayer].addsCost();
+          //merchant[currentPlayer].money -= merchant[currentPlayer].addsCost;
+        }
+      }
+      
+      //Check all level choices
+      for( int i = 2; i <= 8; i++ )
+      {
+        if( advertizeButton[i].mouseOnButton() )
+        {
+          //De-confirm
+          mainButtonRight[1].col = 3;
+          advertizeButton[merchant[currentPlayer].goodsAdd].col = 3;
+          merchant[currentPlayer].refundAddsCost();
+          
+          //Change choice
+          advertizeButton[merchant[currentPlayer].passengerAdd].col = 5;
+          merchant[currentPlayer].passengerAdd = i;
+          advertizeButton[merchant[currentPlayer].passengerAdd].col = 3;
+        }
+        if( advertizeButton[i+7].mouseOnButton() )
+        {
+          //De-confirm
+          mainButtonRight[1].col = 3;
+          advertizeButton[merchant[currentPlayer].passengerAdd].col = 3;
+          merchant[currentPlayer].refundAddsCost();
+          
+          //Change choice
+          advertizeButton[merchant[currentPlayer].goodsAdd].col = 5;
+          merchant[currentPlayer].goodsAdd = i+7;
+          advertizeButton[merchant[currentPlayer].goodsAdd].col = 3;
+        }
       }
     }
     return;
@@ -569,7 +676,10 @@ public void mousePressed()
       if( insureButton[0].mouseOnButton() )
         currentScreen = Screen.MAIN;
       if( insureButton[1].mouseOnButton() )
+      {
         merchant[currentPlayer].buyInsurance();
+        mainButtonRight[2].col = 0;
+      }
     }
     return;
     
@@ -577,6 +687,11 @@ public void mousePressed()
     {
       if( paymentButton[0].mouseOnButton() )
         currentScreen = Screen.MAIN;
+      if( paymentButton[1].mouseOnButton() )
+      {
+        //pay wages
+        mainButtonRight[3].col = 0;
+      }
     }
     return;
     
@@ -584,6 +699,11 @@ public void mousePressed()
     {
       if( paymentButton[0].mouseOnButton() )
         currentScreen = Screen.MAIN;
+      if( paymentButton[1].mouseOnButton() )
+      {
+        //pay wages
+        mainButtonRight[4].col = 0;
+      }
     }
     return;
   }
@@ -707,3 +827,8 @@ public enum TypingMode
   //STUFF HAPPENS
   //competitor updates
   
+//FOR TESTING
+void keyPressed()
+{
+  merchant[currentPlayer].ship.fuel-=10;
+}
