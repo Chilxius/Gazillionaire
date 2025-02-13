@@ -34,7 +34,7 @@ void drawGraph( float x, float y )
 {
   int maxScore = 0;
   int minScore = merchant[0].netHistory.lowest();
-  int graphWidth = 755, graphHeight  = 505;
+  int graphWidth = 755, graphHeight = 505;
 
   for( int i = 1; i < merchant.length; i++ )
   {

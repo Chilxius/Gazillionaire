@@ -27,7 +27,7 @@ Button [] gasButton = new Button[3];
 
 String input = ""; //for keyboard input
 char qwerty [] = {'Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M','_'};
-char numPadBottom [] = {'←','0','✓'};
+String numPadBottom [] = {"DEL","0","OK"};
 int keyFlash [] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 int numKeyFlash [] = {0,0,0,0,0,0,0,0,0,0,0,0};
 float qwertyX1,qwertyX2,qwertyX3;
@@ -48,116 +48,116 @@ void setupScreenData()
     starPos[1][i] = int(random(screenHeight));
   }
   
-  OKButton = new Button( screenWidth/2, screenHeight*.95, adjustInt(400,'x'), adjustInt(75,'y'), 1, "OK" );
+  OKButton = new Button( 1280/2, 800*.95, 400, 75, 1, "OK" );
   
-  newButton  = new Button(screenWidth/2, screenHeight*1/3, adjustFloat(500,'x'), adjustFloat(75,'y'), 0, "New Game");
-  loadButton = new Button(screenWidth/2, screenHeight*2/3, adjustFloat(500,'x'), adjustFloat(75,'y'), 3, "Load Game");
+  newButton  = new Button( 640, 266.67, 500, 75, 0, "New Game");
+  loadButton = new Button( 640, 533.33, 500, 75, 3, "Load Game");
   
   for(int i = 0; i < shipButton.length; i++)
-    shipButton[i] = new ShipButton( ((i*screenWidth/5)%(screenWidth*.8))+screenWidth/5, ((i/4)+1)*(screenHeight/3.9), i );
+    shipButton[i] = new ShipButton( ((i*1280/5)%(1280*.8))+1280/5, ((i/4)+1)*(800/3.9), i ); // OLD -> //shipButton[i] = new ShipButton( ((i*screenWidth/5)%(screenWidth*.8))+screenWidth/5, ((i/4)+1)*(screenHeight/3.9), i );
   for(int i = 0; i < playerCountButton.length; i++)
-    playerCountButton[i] = new Button( screenWidth/2, screenHeight/7*(i+1), adjustFloat(900,'x'), adjustFloat(75,'y'), 1, (i+1)+" Players");
+    playerCountButton[i] = new Button( 640, 114.29*(i+1), 900, 75, 1, (i+1)+" Players");
     
   qwertyX1 = screenWidth/2-adjustInt(450,'x');
   qwertyX2 = screenWidth/2-adjustInt(400,'x');
   qwertyX3 = screenWidth/2-adjustInt(350,'x');
-  keySize = adjustInt(90,'x');
+  keySize = adjustInt(90,'y');
   
-  buyShipButton = new Button( screenWidth/4, screenHeight*.95, adjustFloat(400,'x'), adjustFloat(75,'y'), 0, "I'll Take It!");
-  dontBuyShipButton = new Button( screenWidth*3/4, screenHeight*.95, adjustFloat(400,'x'), adjustFloat(75,'y'), 2, "Reconsider...");
+  buyShipButton = new Button( 1280/4, 800*.95, 400, 75, 0, "I'll Take It!");
+  dontBuyShipButton = new Button( 1280*3/4, 800*.95, 400, 75, 2, "Reconsider...");
   
-  messagePic[0] = loadImage("flrrb.png"); messagePic[0].resize( 0, adjustInt(350,'y') ); //Lady Flrrb's tower
+  messagePic[0] = loadImage("flrrb.png");          messagePic[0].resize( 0, adjustInt(350,'y') ); //Lady Flrrb's tower
   
-  screenPic[0] = loadImage("flrrb.png");     screenPic[0].resize(0,adjustInt(650,'y') ); //Lady Flrrb's tower
-  screenPic[1] = loadImage("bank.png");      screenPic[1].resize(0,adjustInt(650,'y') ); //Bank buildings (for loan office - poorly named)
-  screenPic[2] = loadImage("piggy.png");     screenPic[2].resize(0,adjustInt(650,'y') ); //Piggy Bank
-  screenPic[3] = loadImage("crew.png");      screenPic[3].resize(0,adjustInt(650,'y') ); //Alien Lounge
-  screenPic[4] = loadImage("tax.png");       screenPic[4].resize(0,adjustInt(650,'y') ); //Tax Crab
-  screenPic[5] = loadImage("insurance.png"); screenPic[5].resize(0,adjustInt(650,'y') ); //Burning Ship
-  screenPic[6] = loadImage("passengers.png");screenPic[6].resize(0,adjustInt(600,'y') ); //Passeners
+  screenPic[0] = loadImage("flrrb.png");           screenPic[0].resize(0,adjustInt(650,'y') ); //Lady Flrrb's tower
+  screenPic[1] = loadImage("bank.png");            screenPic[1].resize(0,adjustInt(650,'y') ); //Bank buildings (for loan office - poorly named)
+  screenPic[2] = loadImage("piggy.png");           screenPic[2].resize(0,adjustInt(650,'y') ); //Piggy Bank
+  screenPic[3] = loadImage("crew.png");            screenPic[3].resize(0,adjustInt(650,'y') ); //Alien Lounge
+  screenPic[4] = loadImage("tax.png");             screenPic[4].resize(0,adjustInt(650,'y') ); //Tax Crab
+  screenPic[5] = loadImage("insurance.png");       screenPic[5].resize(0,adjustInt(650,'y') ); //Burning Ship
+  screenPic[6] = loadImage("passengers.png");      screenPic[6].resize(0,adjustInt(600,'y') ); //Passeners
   screenPic[7] = loadImage("billboardSquare.png"); screenPic[7].resize(0,adjustInt(650,'y') ); //Advertizing
-  screenPic[8] = loadImage("gasStation.png");screenPic[8].resize(0,adjustInt(650,'y') ); //Gas
+  screenPic[8] = loadImage("gasStation.png");      screenPic[8].resize(0,adjustInt(650,'y') ); //Gas
   
-  mainButtonLeft[0] = new Button( screenWidth*1.1/8, screenHeight*1/7, adjustFloat(screenWidth/3.9,'x'), adjustFloat(screenHeight/10,'y'), 0, "Ship Info");
-  mainButtonLeft[1] = new Button( screenWidth*1.1/8, screenHeight*2/7, adjustFloat(screenWidth/3.9,'x'), adjustFloat(screenHeight/10,'y'), 0, "Warehouse");
-  mainButtonLeft[2] = new Button( screenWidth*1.1/8, screenHeight*3/7, adjustFloat(screenWidth/3.9,'x'), adjustFloat(screenHeight/10,'y'), 0, "Stocks");
-  mainButtonLeft[3] = new Button( screenWidth*1.1/8, screenHeight*4/7, adjustFloat(screenWidth/3.9,'x'), adjustFloat(screenHeight/10,'y'), 0, "Bank");
-  mainButtonLeft[4] = new Button( screenWidth*1.1/8, screenHeight*5/7, adjustFloat(screenWidth/3.9,'x'), adjustFloat(screenHeight/10,'y'), 0, "Loan");
-  mainButtonLeft[5] = new Button( screenWidth*1.1/8, screenHeight*6/7, adjustFloat(screenWidth/3.9,'x'), adjustFloat(screenHeight/10,'y'), 0, "Lady Flrrb");
+  mainButtonLeft[0] = new Button( 1280*1.1/8, 800*1/7, 1280/3.9, 800/10, 0, "Ship Info");
+  mainButtonLeft[1] = new Button( 1280*1.1/8, 800*2/7, 1280/3.9, 800/10, 0, "Warehouse");
+  mainButtonLeft[2] = new Button( 1280*1.1/8, 800*3/7, 1280/3.9, 800/10, 0, "Stocks");
+  mainButtonLeft[3] = new Button( 1280*1.1/8, 800*4/7, 1280/3.9, 800/10, 0, "Bank");
+  mainButtonLeft[4] = new Button( 1280*1.1/8, 800*5/7, 1280/3.9, 800/10, 0, "Loan");
+  mainButtonLeft[5] = new Button( 1280*1.1/8, 800*6/7, 1280/3.9, 800/10, 0, "Lady Flrrb");
   
-  planetButton = new PicButton( screenWidth/2-150, screenHeight/3.2, 0 );
-  leaveButton = new PicButton( screenWidth/2+150, screenHeight/3.2, 1 );
+  planetButton = new PicButton( 1280/2-150, 800/3.2, 0 );
+  leaveButton = new PicButton( 1280/2+150, 800/3.2, 1 );
   
-  mainButtonMiddle[0] = new Button( screenWidth/2, screenHeight*4.2/7, adjustFloat(screenWidth/3,'x'), adjustFloat(screenHeight/10,'y'), 4, "Buy Fuel");
-  mainButtonMiddle[1] = new Button( screenWidth/2, screenHeight*6/7, adjustFloat(screenWidth/2.5,'x'), adjustFloat(screenHeight/5,'y'), 4, "Market");
+  mainButtonMiddle[0] = new Button( 1280/2, 800*4.2/7, 1280/3,   800/10, 4, "Buy Fuel");
+  mainButtonMiddle[1] = new Button( 1280/2, 800*6/7,   1280/2.5, 800/5,  4, "Market");
   
-  mainButtonRight[0] = new Button( screenWidth*6.9/8, screenHeight*1/7, adjustFloat(screenWidth/3.9,'x'), adjustFloat(screenHeight/10,'y'), 3, "Passenger");
-  mainButtonRight[1] = new Button( screenWidth*6.9/8, screenHeight*2/7, adjustFloat(screenWidth/3.9,'x'), adjustFloat(screenHeight/10,'y'), 3, "Advertize");
-  mainButtonRight[2] = new Button( screenWidth*6.9/8, screenHeight*3/7, adjustFloat(screenWidth/3.9,'x'), adjustFloat(screenHeight/10,'y'), 3, "Insurance");
-  mainButtonRight[3] = new Button( screenWidth*6.9/8, screenHeight*4/7, adjustFloat(screenWidth/3.9,'x'), adjustFloat(screenHeight/10,'y'), 3, "Pay Crew");
-  mainButtonRight[4] = new Button( screenWidth*6.9/8, screenHeight*5/7, adjustFloat(screenWidth/3.9,'x'), adjustFloat(screenHeight/10,'y'), 3, "Taxes");
-  mainButtonRight[5] = new Button( screenWidth*6.9/8, screenHeight*6/7, adjustFloat(screenWidth/3.9,'x'), adjustFloat(screenHeight/10,'y'), 2, "Save/Quit");
+  mainButtonRight[0] = new Button( 1280*6.9/8, 800*1/7, 1280/3.9, 800/10, 3, "Passenger");
+  mainButtonRight[1] = new Button( 1280*6.9/8, 800*2/7, 1280/3.9, 800/10, 3, "Advertize");
+  mainButtonRight[2] = new Button( 1280*6.9/8, 800*3/7, 1280/3.9, 800/10, 3, "Insurance");
+  mainButtonRight[3] = new Button( 1280*6.9/8, 800*4/7, 1280/3.9, 800/10, 3, "Pay Crew");
+  mainButtonRight[4] = new Button( 1280*6.9/8, 800*5/7, 1280/3.9, 800/10, 3, "Taxes");
+  mainButtonRight[5] = new Button( 1280*6.9/8, 800*6/7, 1280/3.9, 800/10, 2, "Save/Quit");
   
-  bankButton[0] = new Button( screenWidth*1/10, screenHeight*9.5/10, screenWidth/5.1, screenHeight/15, 5, "<< Back" );
-  bankButton[1] = new Button( screenWidth*3/10, screenHeight*9.5/10, screenWidth/5.1, screenHeight/15, 1, "Deposit" );
-  bankButton[2] = new Button( screenWidth*1/2,  screenHeight*9.5/10, screenWidth/5.1, screenHeight/15, 1, "MAX" );
-  bankButton[3] = new Button( screenWidth*7/10, screenHeight*9.5/10, screenWidth/5.1, screenHeight/15, 0, "Withdraw" );
-  bankButton[4] = new Button( screenWidth*9/10, screenHeight*9.5/10, screenWidth/5.1, screenHeight/15, 0, "MAX" );
+  bankButton[0] = new Button( 1280*1/10, 800*9.5/10, 1280/5.1, 800/15, 5, "<< Back" );
+  bankButton[1] = new Button( 1280*3/10, 800*9.5/10, 1280/5.1, 800/15, 1, "Deposit" );
+  bankButton[2] = new Button( 1280*1/2,  800*9.5/10, 1280/5.1, 800/15, 1, "MAX" );
+  bankButton[3] = new Button( 1280*7/10, 800*9.5/10, 1280/5.1, 800/15, 0, "Withdraw" );
+  bankButton[4] = new Button( 1280*9/10, 800*9.5/10, 1280/5.1, 800/15, 0, "MAX" );
   
-  loanButton[0] = new Button( screenWidth*1/10, screenHeight*9.5/10, screenWidth/5.1, screenHeight/15, 5, "<< Back" );
-  loanButton[1] = new Button( screenWidth*3/10, screenHeight*9.5/10, screenWidth/5.1, screenHeight/15, 1, "Pay Loan" );
-  loanButton[2] = new Button( screenWidth*1/2, screenHeight*9.5/10, screenWidth/5.1, screenHeight/15, 1, "Pay MAX" );
-  loanButton[3] = new Button( screenWidth*7/10, screenHeight*9.5/10, screenWidth/5.1, screenHeight/15, 0, "Borrow" );
-  loanButton[4] = new Button( screenWidth*9/10, screenHeight*9.5/10, screenWidth/5.1, screenHeight/15, 0, "Borrow MAX" );
+  loanButton[0] = new Button( 1280*1/10, 800*9.5/10, 1280/5.1, 800/15, 5, "<< Back" );
+  loanButton[1] = new Button( 1280*3/10, 800*9.5/10, 1280/5.1, 800/15, 1, "Pay Loan" );
+  loanButton[2] = new Button( 1280*1/2,  800*9.5/10, 1280/5.1, 800/15, 1, "Pay MAX" );
+  loanButton[3] = new Button( 1280*7/10, 800*9.5/10, 1280/5.1, 800/15, 0, "Borrow" );
+  loanButton[4] = new Button( 1280*9/10, 800*9.5/10, 1280/5.1, 800/15, 0, "Borrow MAX" );
   
-  flrrbButton[0] = new Button( screenWidth*1/6, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 5, "<< Back" );
-  flrrbButton[1] = new Button( screenWidth*2/4, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 1, "Pay Loan" );
-  flrrbButton[2] = new Button( screenWidth*5/6, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 1, "Pay Back MAX" );
+  flrrbButton[0] = new Button( 1280*1/6, 800*9.5/10, 1280/3.2, 800/15, 5, "<< Back" );
+  flrrbButton[1] = new Button( 1280*2/4, 800*9.5/10, 1280/3.2, 800/15, 1, "Pay Loan" );
+  flrrbButton[2] = new Button( 1280*5/6, 800*9.5/10, 1280/3.2, 800/15, 1, "Pay Back MAX" );
   
-  paymentButton[0] = new Button( screenWidth*1/4, screenHeight*9.5/10, screenWidth/2.2, screenHeight/15, 5, "<< Back" );
-  paymentButton[1] = new Button( screenWidth*3/4, screenHeight*9.5/10, screenWidth/2.2, screenHeight/15, 0, "Pay Up" );
+  paymentButton[0] = new Button( 1280*1/4, 800*9.5/10, 1280/2.2, 800/15, 5, "<< Back" );
+  paymentButton[1] = new Button( 1280*3/4, 800*9.5/10, 1280/2.2, 800/15, 0, "Pay Up" );
   
-  insureButton[0] = new Button( screenWidth*1/4, screenHeight*9.5/10, screenWidth/2.2, screenHeight/15, 5, "<< Back" );
-  insureButton[1] = new Button( screenWidth*3/4, screenHeight*9.5/10, screenWidth/2.2, screenHeight/15, 0, "Purchase Insurance" );
+  insureButton[0] = new Button( 1280*1/4, 800*9.5/10, 1280/2.2, 800/15, 5, "<< Back" );
+  insureButton[1] = new Button( 1280*3/4, 800*9.5/10, 1280/2.2, 800/15, 0, "Purchase Insurance" );
   
-  passengerButton[0] = new Button( screenWidth*1/6, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 5, "<< Back" );
-  passengerButton[1] = new Button( screenWidth*2/4, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 0, "Pick Up Passengers" );
-  passengerButton[2] = new Button( screenWidth*5/6, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 1, "Set Ticket Price" );
+  passengerButton[0] = new Button( 1280*1/6, 800*9.5/10, 1280/3.2, 800/15, 5, "<< Back" );
+  passengerButton[1] = new Button( 1280*2/4, 800*9.5/10, 1280/3.2, 800/15, 0, "Pick Up Passengers" );
+  passengerButton[2] = new Button( 1280*5/6, 800*9.5/10, 1280/3.2, 800/15, 1, "Set Ticket Price" );
   
-  advertizeButton[0] = new Button( screenWidth*1/4, screenHeight*9.5/10, screenWidth/2.2, screenHeight/15, 5, "<< Back" );
-  advertizeButton[1] = new Button( screenWidth*3/4, screenHeight*9.5/10, screenWidth/2.2, screenHeight/15, 0, "Place Adds" );
+  advertizeButton[0] = new Button( 1280*1/4, 800*9.5/10, 1280/2.2, 800/15, 5, "<< Back" );
+  advertizeButton[1] = new Button( 1280*3/4, 800*9.5/10, 1280/2.2, 800/15, 0, "Place Adds" );
   
-  advertizeButton[2] = new Button( adjustFloat( 845,'x'), screenHeight*1.5/10, adjustFloat(250,'x'), screenHeight/16, 3, "No Adds" );
-  advertizeButton[3] = new Button( adjustFloat( 845,'x'), screenHeight*2.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Put up Fliers" );
-  advertizeButton[4] = new Button( adjustFloat( 845,'x'), screenHeight*3.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Billboards" );
-  advertizeButton[5] = new Button( adjustFloat( 845,'x'), screenHeight*4.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Sky Writing" );
-  advertizeButton[6] = new Button( adjustFloat( 845,'x'), screenHeight*5.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Social Media" );
-  advertizeButton[7] = new Button( adjustFloat( 845,'x'), screenHeight*6.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Influencers" );
-  advertizeButton[8] = new Button( adjustFloat( 845,'x'), screenHeight*7.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Everything" );
+  advertizeButton[2] = new Button( 845, 800*1.5/10, 250, 800/16, 3, "No Adds" );
+  advertizeButton[3] = new Button( 845, 800*2.5/10, 250, 800/16, 5, "Put up Fliers" );
+  advertizeButton[4] = new Button( 845, 800*3.5/10, 250, 800/16, 5, "Billboards" );
+  advertizeButton[5] = new Button( 845, 800*4.5/10, 250, 800/16, 5, "Sky Writing" );
+  advertizeButton[6] = new Button( 845, 800*5.5/10, 250, 800/16, 5, "Social Media" );
+  advertizeButton[7] = new Button( 845, 800*6.5/10, 250, 800/16, 5, "Influencers" );
+  advertizeButton[8] = new Button( 845, 800*7.5/10, 250, 800/16, 5, "Everything" );
   
-  advertizeButton[9]  = new Button( adjustFloat( 1135,'x'), screenHeight*1.5/10, adjustFloat(250,'x'), screenHeight/16, 3, "No Adds" );
-  advertizeButton[10] = new Button( adjustFloat( 1135,'x'), screenHeight*2.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Put up Fliers" );
-  advertizeButton[11] = new Button( adjustFloat( 1135,'x'), screenHeight*3.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Billboards" );
-  advertizeButton[12] = new Button( adjustFloat( 1135,'x'), screenHeight*4.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Sky Writing" );
-  advertizeButton[13] = new Button( adjustFloat( 1135,'x'), screenHeight*5.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Social Media" );
-  advertizeButton[14] = new Button( adjustFloat( 1135,'x'), screenHeight*6.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Influencers" );
-  advertizeButton[15] = new Button( adjustFloat( 1135,'x'), screenHeight*7.5/10, adjustFloat(250,'x'), screenHeight/16, 5, "Everything" );
+  advertizeButton[9]  = new Button( 1135, 800*1.5/10, 250, 800/16, 3, "No Adds" );
+  advertizeButton[10] = new Button( 1135, 800*2.5/10, 250, 800/16, 5, "Put up Fliers" );
+  advertizeButton[11] = new Button( 1135, 800*3.5/10, 250, 800/16, 5, "Billboards" );
+  advertizeButton[12] = new Button( 1135, 800*4.5/10, 250, 800/16, 5, "Sky Writing" );
+  advertizeButton[13] = new Button( 1135, 800*5.5/10, 250, 800/16, 5, "Social Media" );
+  advertizeButton[14] = new Button( 1135, 800*6.5/10, 250, 800/16, 5, "Influencers" );
+  advertizeButton[15] = new Button( 1135, 800*7.5/10, 250, 800/16, 5, "Everything" );
   
-  gasButton[0] = new Button( screenWidth*1/6, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 5, "<< Back" );
-  gasButton[1] = new Button( screenWidth*2/4, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 1, "Buy Fuel" );
-  gasButton[2] = new Button( screenWidth*5/6, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 1, "Fill 'er Up" );
+  gasButton[0] = new Button( 1280*1/6, 800*9.5/10, 1280/3.2, 800/15, 5, "<< Back" );
+  gasButton[1] = new Button( 1280*2/4, 800*9.5/10, 1280/3.2, 800/15, 1, "Buy Fuel" );
+  gasButton[2] = new Button( 1280*5/6, 800*9.5/10, 1280/3.2, 800/15, 1, "Fill 'er Up" );
   
   //700 - 1280
   
-  visitButton[7] = new Button( screenWidth*1/6, screenHeight*9.5/10, screenWidth/3.2, screenHeight/15, 5, "<< Back" );
-  visitButton[0] = new Button( screenWidth*2/3, screenHeight*9.5/10, screenWidth/1.6, screenHeight/15, 0, "Seek Audience at Imperial Tower" );
-  visitButton[1] = new Button( screenWidth*2/3, screenHeight*9.5/10, screenWidth/1.6, screenHeight/15, 0, "Petition the Loan Officers" );
-  visitButton[2] = new Button( screenWidth*2/3, screenHeight*9.5/10, screenWidth/1.6, screenHeight/15, 0, "Pay a Visit to your Broker" );
-  visitButton[3] = new Button( screenWidth*2/3, screenHeight*9.5/10, screenWidth/1.6, screenHeight/15, 0, "Sane Larry's Discount Fuel" );
-  visitButton[4] = new Button( screenWidth*2/3, screenHeight*9.5/10, screenWidth/1.6, screenHeight/15, 0, "Stroll through the Farmers' Market" );
-  visitButton[5] = new Button( screenWidth*2/3, screenHeight*9.5/10, screenWidth/1.6, screenHeight/15, 0, "Stop by the Research Labs" );
-  visitButton[6] = new Button( screenWidth*2/3, screenHeight*9.5/10, screenWidth/1.6, screenHeight/15, 0, "Doughnuts!" );
-  visitButton[8] = new Button( screenWidth*1/2, screenHeight*9.5/10, screenWidth*.98, screenHeight/15, 5, "Return to your Ship" );
+  visitButton[7] = new Button( 1280*1/6, 800*9.5/10, 1280/3.2, 800/15, 5, "<< Back" );
+  visitButton[0] = new Button( 1280*2/3, 800*9.5/10, 1280/1.6, 800/15, 0, "Seek Audience at Imperial Tower" );
+  visitButton[1] = new Button( 1280*2/3, 800*9.5/10, 1280/1.6, 800/15, 0, "Petition the Loan Officers" );
+  visitButton[2] = new Button( 1280*2/3, 800*9.5/10, 1280/1.6, 800/15, 0, "Pay a Visit to your Broker" );
+  visitButton[3] = new Button( 1280*2/3, 800*9.5/10, 1280/1.6, 800/15, 0, "Sane Larry's Discount Fuel" );
+  visitButton[4] = new Button( 1280*2/3, 800*9.5/10, 1280/1.6, 800/15, 0, "Stroll through the Farmers' Market" );
+  visitButton[5] = new Button( 1280*2/3, 800*9.5/10, 1280/1.6, 800/15, 0, "Stop by the Research Labs" );
+  visitButton[6] = new Button( 1280*2/3, 800*9.5/10, 1280/1.6, 800/15, 0, "Doughnuts!" );
+  visitButton[8] = new Button( 1280*1/2, 800*9.5/10, 1280*.98, 800/15, 5, "Return to your Ship" );
   
   //Koo Kee - Request lower tariffs and taxes
   //Stittle - Request better interest rates (loan/bank) or higher credit limit
@@ -178,7 +178,7 @@ void drawTitleScreen()
   textSize(adjustFloat(150,'x')); //100 on 1280
   textAlign(CENTER);
   text("BAZILLIONAIRE",width/2,height/2);
-  textSize(20);
+  textSize(adjustInt(20,'x'));
   text("[Click to Continue]",width/2,height*0.75);
   pop();
 }
@@ -218,7 +218,7 @@ void drawShipSelectScreen()
 {
   background(0);
   drawStars();
-  textSize(40);
+  textSize(adjustInt(40,'x'));
   textAlign(CENTER);
   text(input + ", choose your new ship:",screenWidth/2, screenHeight/12);
   for( int i = 0; i < shipButton.length; i++ )
@@ -249,7 +249,7 @@ void drawShipConfirmScreen()
   text("Required Crew: ", adjustFloat(700,'x'), adjustFloat(400,'y') );   text(ships[currentShip].crew, adjustFloat(1080,'x'), adjustFloat(400,'y') );
   rectMode(CORNER);
   textSize( adjustInt(30,'x') );
-  text(ships[currentShip].description, adjustFloat(70,'x'), adjustFloat(480,'y'), 1100,300);
+  text(ships[currentShip].description, adjustFloat(70,'x'), adjustFloat(480,'y'), adjustFloat(1100,'x'),adjustFloat(300,'x'));
 
   buyShipButton.drawButton();
   dontBuyShipButton.drawButton();
@@ -265,7 +265,7 @@ void drawMessageScreen()
   image( messageImage(currentMessage), screenWidth/2, screenHeight/4 );
   textAlign(LEFT);
   rectMode(CORNER);
-  textSize(25);
+  textSize(adjustInt(25,'x'));
   fill(255);
   text( messageText(currentMessage), adjustFloat(25,'x'), screenHeight/2, screenWidth-adjustFloat(50,'x'), screenHeight );
   OKButton.drawButton();
@@ -283,10 +283,10 @@ void drawReviewScreen()
   strokeWeight(1);
   line( adjustInt(915,'x'), adjustInt(90,'y'), adjustInt(1160,'x'), adjustInt(90,'y') );
   fill(255);
-  textSize(50);
+  textSize(adjustInt(50,'x'));
   textAlign(CENTER);
   text("Week " + currentWeek, adjustInt( 1040, 'x' ), adjustInt( 75, 'y' ) );
-  textSize(30);
+  textSize(adjustInt(30,'x'));
   textAlign(LEFT);
   stroke(255);
   for( int i = 0; i < 6; i++)
@@ -297,7 +297,7 @@ void drawReviewScreen()
     fill(lineColor[i]);
     circle( adjustInt(900,'x'), adjustInt(150+i*110,'y'), 30 );
   }
-  textSize(50);
+  textSize(adjustInt(50,'x'));
   fill(255);
   textAlign(CENTER);
   text("GOAL",adjustInt(425,'x'),adjustInt(610,'y'));
@@ -314,11 +314,11 @@ void drawPlanetWelcome()
   drawStars();
   image(merchant[currentPlayer].currentPlanet.picLarge,screenWidth/3,screenHeight/2);
   fill(255);
-  textSize(40);
+  textSize(adjustInt(40,'x'));
   textAlign(CENTER);
   text(""+merchant[currentPlayer], screenWidth*3/4, screenHeight/6);
   text("Welcome to "+merchant[currentPlayer].currentPlanet, screenWidth*3/4, screenHeight/4);
-  textSize(20);
+  textSize(adjustInt(20,'x'));
   text(""+merchant[currentPlayer].currentPlanet.description, screenWidth*3/4, screenHeight/3.5);
 }
 
@@ -336,12 +336,12 @@ void drawMainScreen()
     mainButtonMiddle[i].drawButton();
   planetButton.drawButton();
   leaveButton.drawButton();
-  textSize(45);
+  textSize(adjustInt(45,'x'));
   textAlign(CENTER);
   fill(255);
   text( merchant[currentPlayer].name, screenWidth/2, screenHeight*1.5/20 );
   fill(225,225,0);
-  textSize(35);
+  textSize(adjustInt(35,'x'));
   text( asCash(merchant[currentPlayer].money) + " jeorbs", screenWidth/2, screenHeight*2.5/20 );
   drawFuelGage(0);
 }
@@ -371,18 +371,18 @@ void drawShipInfoScreen()
   fill(0);
   rect(screenWidth/2,screenHeight/2.6,adjustFloat(600,'x'),adjustFloat(400,'y'));
   image(merchant[currentPlayer].ship.picLarge,screenWidth/2,screenHeight/2.6);
-  textSize(35);
+  textSize(adjustInt(35,'x'));
   text(merchant[currentPlayer].ship.name, screenWidth/2, adjustFloat(90,'y'));
   
   //Ship data
-  textSize(35);
+  textSize(adjustInt(35,'x'));
   text( "Ship Size: " + merchant[currentPlayer].ship.size + " tons", screenWidth/2, adjustInt(540,'y') );
   text( "Weekly Crew Wages:", screenWidth/2, adjustInt(605,'y') );
   text( asCash(merchant[currentPlayer].ship.crew*merchant[currentPlayer].ship.crewWages) + " jeorbs", screenWidth/2, adjustInt(645,'y') );
-  textSize(30);
+  textSize(adjustInt(30,'x'));
   text( "(" + asCash(merchant[currentPlayer].ship.crewWages) + " per person)", screenWidth/2, adjustInt(685,'y') );
   textAlign(LEFT);
-  textSize(35);
+  textSize(adjustInt(35,'x'));
   text( "Engine: " + merchant[currentPlayer].ship.engine + " xanpars", adjustInt(50,'x'), adjustInt(540,'y') );
   text( "Cargo: " + merchant[currentPlayer].ship.cargoCapacity + " tons", adjustInt(50,'x'), adjustInt(590,'y') );
   text( "Fuel Tank: " + merchant[currentPlayer].ship.fuelCapacity + " tons", adjustInt(50,'x'), adjustInt(640,'y') );
@@ -442,11 +442,11 @@ void drawBankScreen()
   rect( adjustInt(1000,'x'), screenHeight*2.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*3.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*4.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
-  textSize(35);
+  textSize(adjustInt(35,'x'));
   textAlign(CENTER);
   fill(0);
   text( "Secure Cash Vault", adjustInt(1000,'x'), screenHeight/15 );
-  textSize(20);
+  textSize(adjustInt(20,'x'));
   text( "Account Balance", adjustInt(1000,'x'), screenHeight*0.85/5 );
   text( asCash(merchant[currentPlayer].bankAccount), adjustInt(1000,'x'), screenHeight*1.15/5 );
   text( "Interest Rate", adjustInt(1000,'x'), screenHeight*1.85/5 );
@@ -465,7 +465,8 @@ void drawLoanScreen()
 {
   push();
   //background(250,185,95);
-  background(128,0,32);
+  //background(128,0,32);
+  background(66,0,33);
   
   //Image
   fill(200);
@@ -489,11 +490,11 @@ void drawLoanScreen()
   rect( adjustInt(1000,'x'), screenHeight*3.1/6, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*4.1/6, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*5.1/6, screenWidth/3.1, adjustInt(50,'y'), 20 );
-  textSize(35);
+  textSize(adjustInt(35,'x'));
   textAlign(CENTER);
   fill(0);
   text( "Imperial Trade Union", adjustInt(1000,'x'), screenHeight/15 );
-  textSize(20);
+  textSize(adjustInt(20,'x'));
   text( "Loan Amount", adjustInt(1000,'x'), screenHeight*0.85/6 );
   text( asCash(merchant[currentPlayer].loanTotal), adjustInt(1000,'x'), screenHeight*1.15/6 );
   text( "Credit Limit", adjustInt(1000,'x'), screenHeight*1.85/6 );
@@ -537,11 +538,11 @@ void drawFlrrbScreen()
   rect( adjustInt(1000,'x'), screenHeight*3.1/6, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*4.1/6, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*5.1/6, screenWidth/3.1, adjustInt(50,'y'), 20 );
-  textSize(35);
+  textSize(adjustInt(35,'x'));
   textAlign(CENTER);
   fill(0);
   text( "Lady Flrrb's Loan", adjustInt(1000,'x'), screenHeight/15 );
-  textSize(20);
+  textSize(adjustInt(20,'x'));
   text( "Loan Amount", adjustInt(1000,'x'), screenHeight*0.85/6 );
   text( asCash(merchant[currentPlayer].zinnTotal), adjustInt(1000,'x'), screenHeight*1.15/6 );
   text( "Credit Limit", adjustInt(1000,'x'), screenHeight*1.85/6 );
@@ -613,11 +614,11 @@ void drawGasScreen()
   rect( adjustInt(1000,'x'), screenHeight*2.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*3.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*4.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
-  textSize(35);
+  textSize(adjustInt(35,'x'));
   textAlign(CENTER);
   fill(0);
   text( "Niez Kleen Gas Station", adjustInt(1000,'x'), screenHeight/15 );
-  textSize(20);
+  textSize(adjustInt(20,'x'));
   text( "Your Cash", adjustInt(1000,'x'), screenHeight*0.85/5 );
   text( asCash(merchant[currentPlayer].money), adjustInt(1000,'x'), screenHeight*1.15/5 );
   text( "Fuel Price Range (per ton)", adjustInt(1000,'x'), screenHeight*1.85/5 );
@@ -636,7 +637,7 @@ void drawGasScreen()
 void drawPassengerScreen()
 {
   push();
-  background(100);
+  background(160,130,80);
   
   //Image
   fill(200);
@@ -658,11 +659,11 @@ void drawPassengerScreen()
   rect( adjustInt(1000,'x'), screenHeight*2.9/6, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*3.9/6, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*4.9/6, screenWidth/3.1, adjustInt(50,'y'), 20 );
-  textSize(35);
+  textSize(adjustInt(35,'x'));
   textAlign(CENTER);
   fill(0);
   text( "Passenger Deck", adjustInt(1000,'x'), screenHeight/5.5 );
-  textSize(20);
+  textSize(adjustInt(20,'x'));
   text( "Profit This Week", adjustInt(1000,'x'), screenHeight*1.625/6 );
   text( asCash(merchant[currentPlayer].ship.passengers*merchant[currentPlayer].ship.passengerPrice), adjustInt(1000,'x'), screenHeight*1.95/6 );
   text( "Ticket Price", adjustInt(1000,'x'), screenHeight*2.625/6 );
@@ -688,7 +689,7 @@ passengers on planet:
 void drawAdvertizingScreen()
 {
   push();
-  background(100);
+  background(255,150,175);
   
   //Image
   fill(200);
@@ -707,12 +708,12 @@ void drawAdvertizingScreen()
   rect( adjustInt(845,'x'), screenHeight*8.73/10, adjustFloat( 240,'x'), adjustInt(40,'y'), 20 );
   rect( adjustInt(1135,'x'), screenHeight*8.73/10, adjustFloat( 240,'x'), adjustInt(40,'y'), 20 );
   //Text
-  textSize(35);
+  textSize(adjustInt(35,'x'));
   textAlign(CENTER);
   fill(0);
   text( "Advertizing", adjustInt(990,'x'), screenHeight/13 );
   //text( "Commodities", adjustInt(1135,'x'), screenHeight/13 );
-  textSize(20);
+  textSize(adjustInt(20,'x'));
   text( "Passenger", adjustInt(845,'x'), screenHeight*8.325/10 );
   text( asCash(advertizeCost(merchant[currentPlayer].passengerAdd)), adjustInt(845,'x'), screenHeight*8.8/10 );
   text( "Commodities", adjustInt(1135,'x'), screenHeight*8.325/10 );
@@ -726,7 +727,7 @@ void drawAdvertizingScreen()
 void drawInsuranceScreen()
 {
   push();
-  background(100);
+  background(50);
   
   //Image
   fill(200);
@@ -748,11 +749,11 @@ void drawInsuranceScreen()
   rect( adjustInt(1000,'x'), screenHeight*2.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*3.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*4.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
-  textSize(35);
+  textSize(adjustInt(35,'x'));
   textAlign(CENTER);
   fill(0);
   text( "Spaceflight Insurance", adjustInt(1000,'x'), screenHeight/15 );
-  textSize(20);
+  textSize(adjustInt(20,'x'));
   text( "Your Cash", adjustInt(1000,'x'), screenHeight*0.85/5 );
   text( asCash(merchant[currentPlayer].money), adjustInt(1000,'x'), screenHeight*1.15/5 );
   text( "Price Range", adjustInt(1000,'x'), screenHeight*1.85/5 );
@@ -774,7 +775,7 @@ void drawInsuranceScreen()
 void drawCrewScreen()
 {
   push();
-  background(100);
+  background(50,180,180);
   
   //Image
   fill(200);
@@ -796,11 +797,11 @@ void drawCrewScreen()
   rect( adjustInt(1000,'x'), screenHeight*2.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*3.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*4.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
-  textSize(35);
+  textSize(adjustInt(35,'x'));
   textAlign(CENTER);
   fill(0);
   text( "Crew Break Room", adjustInt(1000,'x'), screenHeight/15 );
-  textSize(20);
+  textSize(adjustInt(20,'x'));
   text( "Number of Employees", adjustInt(1000,'x'), screenHeight*0.85/5 );
   text( merchant[currentPlayer].ship.crew, adjustInt(1000,'x'), screenHeight*1.15/5 );
   text( "Weekly Salary per Person", adjustInt(1000,'x'), screenHeight*1.85/5 );
@@ -818,7 +819,7 @@ void drawCrewScreen()
 void drawTaxScreen()
 {
   push();
-  background(100);
+  background(200);
   
   //Image
   fill(200);
@@ -840,11 +841,11 @@ void drawTaxScreen()
   rect( adjustInt(1000,'x'), screenHeight*2.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*3.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
   rect( adjustInt(1000,'x'), screenHeight*4.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
-  textSize(35);
+  textSize(adjustInt(35,'x'));
   textAlign(CENTER);
   fill(0);
   text( "Terrence The Tax Crab", adjustInt(1000,'x'), screenHeight/15 );
-  textSize(20);
+  textSize(adjustInt(20,'x'));
   text( "Passenger Taxes (" + passengerTax + "%)", adjustInt(1000,'x'), screenHeight*0.85/5 );
   text( asCash(merchant[currentPlayer].passTax), adjustInt(1000,'x'), screenHeight*1.15/5 );
   text( "Commodity Taxes (Import " + importTariff + "%, Export "+exportTariff+"%)", adjustInt(1000,'x'), screenHeight*1.85/5 );
@@ -949,7 +950,8 @@ void drawNumpad()
     stroke(255);
     rect( screenWidth/2+(i-1)*keySize*1.2, screenHeight*1.75/3+(keySize*1.2), keySize, keySize, 20 );
     fill(255);
-    text( numPadBottom[i], screenWidth/2+(i-1)*keySize*1.2, screenHeight*1.835/3+(keySize*1.2) );
+    if( i == 1 ) textSize(adjustInt(60,'x')); else textSize( adjustInt(40,'x') );
+    text( numPadBottom[i], screenWidth/2+(i-1)*keySize*1.2, screenHeight*1.835/3+(keySize*1.2)-((1-(i%2))*adjustInt(5,'x')) );
   }
 }
 
@@ -965,29 +967,29 @@ void drawQwerty()
   for(int i = 0; i < 27; i++)
   {
     //noFill();
-    strokeWeight(4);
+    strokeWeight(adjustInt(4,'x'));
     fill(255,50+keyFlash[i]);
     stroke(255);
     if( i < 10 )
     {
-      rect( qwertyX1+(100*i), (screenHeight*1/2)+adjustInt(40,'y'), keySize, keySize, 20);
+      rect( qwertyX1+(adjustInt(100,'x')*i), (screenHeight*1/2)+adjustInt(40,'y'), keySize, keySize, adjustInt(20,'x'));
       fill(255);
-      text( qwerty[i], qwertyX1+(100*i), (screenHeight*1/2)+adjustInt(60,'y') );
+      text( qwerty[i], qwertyX1+(adjustInt(100,'x')*i), (screenHeight*1/2)+adjustInt(60,'y') );
     }
     else if( i < 19 )
     {
-      rect( qwertyX2+(100*(i-10)), (screenHeight*1/2)+adjustInt(140,'y'), keySize, keySize, 20);
+      rect( qwertyX2+(adjustInt(100,'x')*(i-10)), (screenHeight*1/2)+adjustInt(140,'y'), keySize, keySize, adjustInt(20,'x'));
       fill(255);
-      text( qwerty[i], qwertyX2+(100*(i-10)), (screenHeight*1/2)+adjustInt(160,'y') );
+      text( qwerty[i], qwertyX2+(adjustInt(100,'x')*(i-10)), (screenHeight*1/2)+adjustInt(160,'y') );
     }
     else
     {
-      rect( qwertyX3+(100*(i-19)), (screenHeight*1/2)+adjustInt(240,'y'), keySize, keySize, 20);
+      rect( qwertyX3+(adjustInt(100,'x')*(i-19)), (screenHeight*1/2)+adjustInt(240,'y'), keySize, keySize, adjustInt(20,'x'));
       fill(255);
-      text( qwerty[i], qwertyX3+(100*(i-19)), (screenHeight*1/2)+adjustInt(260,'y') );
+      text( qwerty[i], qwertyX3+(adjustInt(100,'x')*(i-19)), (screenHeight*1/2)+adjustInt(260,'y') );
     }
   }
-  strokeWeight(4);
+  strokeWeight(adjustInt(4,'x'));
   stroke(255);
   fill(255,50+keyFlash[27]);
   circle(screenWidth/10,screenHeight*13/16,keySize*1.5);

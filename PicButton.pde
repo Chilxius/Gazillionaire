@@ -10,17 +10,17 @@ class PicButton extends Button
   void drawButton()
   {
     fill(200);
-    textSize(20);
+    textSize(adjustInt(20,'x'));
     textAlign(CENTER);
     if( col == 0 )
     {
       image( merchant[currentPlayer].currentPlanet.picMed, xPos, yPos );
-      text("Visit "+merchant[currentPlayer].currentPlanet, xPos, yPos+150 );
+      text("Visit "+merchant[currentPlayer].currentPlanet, xPos, yPos+adjustInt(150,'x') );
     }
     else
     {
       image( merchant[currentPlayer].ship.picMed, xPos, yPos );
-      text("Blast Off", xPos, yPos+150 );
+      text("Blast Off", xPos, yPos+adjustInt(150,'x') );
     }
   }
   

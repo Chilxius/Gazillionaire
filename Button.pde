@@ -10,6 +10,8 @@ color [][] buttonColor = { { color(100,200,100), color(50,200,50),   color(0,150
 //Buttons are rounded and the text is white
 //Text is sized based on buttons Y-Size
 
+//Buttons should be passed literal arguments based on my compuer's screen. The constructor will convert.
+
 class Button
 {
   float xPos, yPos; //center of button

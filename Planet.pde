@@ -36,12 +36,12 @@ class Planet
     }
     name = planetNames[type]; //get name from list
     description = planetDescription[type]; //get description from list
-    picLarge = loadImage("planet_"+type+".png"); picLarge.resize(int(adjustFloat(screenHeight,'x')),0);
+    picLarge = loadImage("planet_"+type+".png"); picLarge.resize(int(adjustFloat(800,'y')),0);
     picMed   = loadImage("planet_"+type+".png"); picMed.resize(adjustInt(275,'x'),0);
     picSmall = loadImage("planet_"+type+".png"); picSmall.resize(adjustInt(150,'x'),0);
     picLandscape = loadImage("p_land_"+type+".png"); picLandscape.resize(0,adjustInt(650,'y'));
-    landscapeBig = loadImage("p_land_"+type+".png"); landscapeBig.resize(int(screenWidth),0);
-    //landscapeBig = loadImage("p_land_"+type+".png"); landscapeBig.resize(0,int(screenHeight));
+    landscapeBig = loadImage("p_land_"+type+".png"); landscapeBig.resize(adjustInt(1280,'x'),0);
+    //landscapeBig = loadImage("p_land_"+type+".png"); landscapeBig.resize(0,int(800));
     planetColor = planetColors[type];
     
     index = type;

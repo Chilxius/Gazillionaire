@@ -30,6 +30,7 @@ import java.util.Collections;
 //Gas
 
 // ! Change all button colors when next player's turn starts ! (main menu, adds)
+//textLeading() changes space between lines, but rests with textSize(). Create a master method? (which adjusts)
 
 //Display Data
 Screen currentScreen, nextScreen;
@@ -89,6 +90,7 @@ void setup()
   typingMode = TypingMode.NONE;
   screenWidth = width;
   screenHeight = height;
+  textFont( createFont("Lucida Sans", 128) );
   setupScreenData();
   setupPlanets();
   buildShips();
@@ -231,7 +233,7 @@ void showRedWords()
   if( redWordsTimer < 0 )
     return;
   push();
-  textSize(90);
+  textSize(adjustInt(90,'x'));
   textAlign(CENTER);
   fill(200,0,0,redWordsTimer);
   text( redWords, screenWidth/2, screenHeight/2 );
@@ -736,19 +738,19 @@ public void mousePressed()
 char checkForLetter()
 {
   for( int i = 0; i < 10; i++ )
-    if( dist( mouseX, mouseY, qwertyX1+i*100, (screenHeight*1/2)+adjustInt(40,'y') ) < adjustInt(50,'x') )
+    if( dist( mouseX, mouseY, qwertyX1+i*adjustInt(100,'x'), (screenHeight*1/2)+adjustInt(40,'y') ) < adjustInt(50,'x') )
     {
       keyFlash[i]=200;
       return qwerty[i];
     }
   for( int i = 0; i < 9; i++ )
-    if( dist( mouseX, mouseY, qwertyX2+i*100, (screenHeight*1/2)+adjustInt(140,'y') ) < adjustInt(50,'x') )
+    if( dist( mouseX, mouseY, qwertyX2+i*adjustInt(100,'x'), (screenHeight*1/2)+adjustInt(140,'y') ) < adjustInt(50,'x') )
     {
       keyFlash[i+10]=200;
       return qwerty[i+10];
     }
   for( int i = 0; i < 8; i++ )
-    if( dist( mouseX, mouseY, qwertyX3+i*100, (screenHeight*1/2)+adjustInt(240,'y') ) < adjustInt(50,'x') )
+    if( dist( mouseX, mouseY, qwertyX3+i*adjustInt(100,'x'), (screenHeight*1/2)+adjustInt(240,'y') ) < adjustInt(50,'x') )
     {
       keyFlash[i+19]=200;
       return qwerty[i+19];
@@ -830,5 +832,5 @@ public enum TypingMode
 //FOR TESTING
 void keyPressed()
 {
-  merchant[currentPlayer].ship.fuel-=10;
+  //merchant[currentPlayer].ship.fuel-=10;
 }

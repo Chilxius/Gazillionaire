@@ -6,7 +6,8 @@ class ShipButton extends Button
   
   public ShipButton( float x, float y, int type )
   {
-    super(x, y, adjustFloat(240,'x'), adjustFloat(190,'y'), type, "");
+    //super(x, y, adjustFloat(240,'x'), adjustFloat(190,'y'), type, "");
+    super(x, y, 240, 190, type, "");
     pic = loadImage("ship_"+type+".png");
     if( pic.width > pic.height )
       pic.resize(int(xSize*.8),0);
