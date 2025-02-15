@@ -18,6 +18,7 @@ PicButton planetButton, leaveButton;
 Button [] bankButton = new Button[5];
 Button [] loanButton = new Button[5];
 Button [] flrrbButton = new Button[3];
+Button mapBackButton;
 Button [] paymentButton = new Button[2];
 Button [] insureButton = new Button[2];
 Button [] passengerButton = new Button[3];
@@ -67,6 +68,7 @@ void setupScreenData()
   dontBuyShipButton = new Button( 1280*3/4, 800*.95, 400, 75, 2, "Reconsider...");
   
   messagePic[0] = loadImage("flrrb.png");          messagePic[0].resize( 0, adjustInt(350,'y') ); //Lady Flrrb's tower
+  messagePic[1] = loadImage("gasStation.png");     messagePic[1].resize( 0, adjustInt(350,'y') );
   
   screenPic[0] = loadImage("flrrb.png");           screenPic[0].resize(0,adjustInt(650,'y') ); //Lady Flrrb's tower
   screenPic[1] = loadImage("bank.png");            screenPic[1].resize(0,adjustInt(650,'y') ); //Bank buildings (for loan office - poorly named)
@@ -114,6 +116,8 @@ void setupScreenData()
   flrrbButton[1] = new Button( 1280*2/4, 800*9.5/10, 1280/3.2, 800/15, 1, "Pay Loan" );
   flrrbButton[2] = new Button( 1280*5/6, 800*9.5/10, 1280/3.2, 800/15, 1, "Pay Back MAX" );
   
+  mapBackButton = new Button( 1280*1/8, 800*9.5/10, 1280/4.4, 800/15, 5, "<< Back" );
+  
   paymentButton[0] = new Button( 1280*1/4, 800*9.5/10, 1280/2.2, 800/15, 5, "<< Back" );
   paymentButton[1] = new Button( 1280*3/4, 800*9.5/10, 1280/2.2, 800/15, 0, "Pay Up" );
   
@@ -127,21 +131,21 @@ void setupScreenData()
   advertizeButton[0] = new Button( 1280*1/4, 800*9.5/10, 1280/2.2, 800/15, 5, "<< Back" );
   advertizeButton[1] = new Button( 1280*3/4, 800*9.5/10, 1280/2.2, 800/15, 0, "Place Adds" );
   
-  advertizeButton[2] = new Button( 845, 800*1.5/10, 250, 800/16, 3, "No Adds" );
-  advertizeButton[3] = new Button( 845, 800*2.5/10, 250, 800/16, 5, "Put up Fliers" );
-  advertizeButton[4] = new Button( 845, 800*3.5/10, 250, 800/16, 5, "Billboards" );
-  advertizeButton[5] = new Button( 845, 800*4.5/10, 250, 800/16, 5, "Sky Writing" );
-  advertizeButton[6] = new Button( 845, 800*5.5/10, 250, 800/16, 5, "Social Media" );
-  advertizeButton[7] = new Button( 845, 800*6.5/10, 250, 800/16, 5, "Influencers" );
-  advertizeButton[8] = new Button( 845, 800*7.5/10, 250, 800/16, 5, "Everything" );
+  advertizeButton[2] = new Button( 845, 800*3/10, 250, 800/16, 3, "No Adds" );
+  advertizeButton[3] = new Button( 845, 800*3.9/10, 250, 800/16, 5, "Put up Fliers" );
+  advertizeButton[4] = new Button( 845, 800*4.8/10, 250, 800/16, 5, "Billboards" );
+  advertizeButton[5] = new Button( 845, 800*5.7/10, 250, 800/16, 5, "Sky Writing" );
+  advertizeButton[6] = new Button( 845, 800*6.6/10, 250, 800/16, 5, "Social Media" );
+  advertizeButton[7] = new Button( 845, 800*7.5/10, 250, 800/16, 5, "Influencers" );
+  advertizeButton[8] = new Button( 845, 800*8.4/10, 250, 800/16, 5, "Everything" );
   
-  advertizeButton[9]  = new Button( 1135, 800*1.5/10, 250, 800/16, 3, "No Adds" );
-  advertizeButton[10] = new Button( 1135, 800*2.5/10, 250, 800/16, 5, "Put up Fliers" );
-  advertizeButton[11] = new Button( 1135, 800*3.5/10, 250, 800/16, 5, "Billboards" );
-  advertizeButton[12] = new Button( 1135, 800*4.5/10, 250, 800/16, 5, "Sky Writing" );
-  advertizeButton[13] = new Button( 1135, 800*5.5/10, 250, 800/16, 5, "Social Media" );
-  advertizeButton[14] = new Button( 1135, 800*6.5/10, 250, 800/16, 5, "Influencers" );
-  advertizeButton[15] = new Button( 1135, 800*7.5/10, 250, 800/16, 5, "Everything" );
+  advertizeButton[9]  = new Button( 1135, 800*3/10, 250, 800/16, 3, "No Adds" );
+  advertizeButton[10] = new Button( 1135, 800*3.9/10, 250, 800/16, 5, "Put up Fliers" );
+  advertizeButton[11] = new Button( 1135, 800*4.8/10, 250, 800/16, 5, "Billboards" );
+  advertizeButton[12] = new Button( 1135, 800*5.7/10, 250, 800/16, 5, "Sky Writing" );
+  advertizeButton[13] = new Button( 1135, 800*6.6/10, 250, 800/16, 5, "Social Media" );
+  advertizeButton[14] = new Button( 1135, 800*7.5/10, 250, 800/16, 5, "Influencers" );
+  advertizeButton[15] = new Button( 1135, 800*8.4/10, 250, 800/16, 5, "Everything" );
   
   gasButton[0] = new Button( 1280*1/6, 800*9.5/10, 1280/3.2, 800/15, 5, "<< Back" );
   gasButton[1] = new Button( 1280*2/4, 800*9.5/10, 1280/3.2, 800/15, 1, "Buy Fuel" );
@@ -358,13 +362,13 @@ void drawShipInfoScreen()
   for( int i = 50; i < screenHeight-50; i+=50 )
     line( 50, i, screenWidth-50, i );
   fill(175);
-  rect(425,560,430,150);
+  rect(adjustInt(425,'x'),adjustInt(560,'y'),adjustInt(430,'x'),adjustInt(150,'y'));
   //Bolts
   fill(120);  noStroke();
   circle(25,25,30);               circle(screenWidth-25, 25, 30 );
   circle(25,screenHeight-25,30);  circle(screenWidth-25, screenHeight-25, 30 );
-  circle(435,570,10);  circle(845,570,10);
-  circle(435,700,10);  circle(845,700,10);
+  circle(adjustInt(435,'x'),adjustInt(570,'y'),10);  circle(adjustInt(845,'x'),adjustInt(570,'y'),10);
+  circle(adjustInt(435,'x'),adjustInt(700,'y'),10);  circle(adjustInt(845,'x'),adjustInt(700,'y'),10);
   textAlign(CENTER);
   rectMode(CENTER);
   stroke(255);
@@ -415,6 +419,16 @@ void drawShipInfoScreen()
     text( crewTotal, adjustInt(1150,'x'), adjustInt(700,'y') );
     
   OKButton.drawButton();
+}
+
+void drawStockMarketScreen()
+{
+  
+}
+
+void drawWarehouseScreen()
+{
+  
 }
 
 void drawBankScreen()
@@ -589,6 +603,16 @@ void drawPlanetScreen()
   pop();
 }
 
+void drawMapScreen()
+{
+  background(0);
+  drawStars();
+  for( Planet p: planet )
+    p.drawSmallPlanet();
+    
+  mapBackButton.drawButton();
+}
+
 void drawGasScreen()
 {
   push();
@@ -701,12 +725,12 @@ void drawAdvertizingScreen()
   //Info
   noStroke();
   rectMode(CENTER);
-  fill(#624585);
-  rect( adjustInt(845,'x'),  screenHeight*8.53/10, adjustFloat( 250,'x'), adjustInt(80,'y'), 20 );
-  rect( adjustInt(1135,'x'), screenHeight*8.53/10, adjustFloat( 250,'x'), adjustInt(80,'y'), 20 );
+  fill(#625595);
+  rect( adjustInt(845,'x'),  screenHeight*1.8/10, adjustFloat( 250,'x'), adjustInt(80,'y'), 20 );
+  rect( adjustInt(1135,'x'), screenHeight*1.8/10, adjustFloat( 250,'x'), adjustInt(90,'y'), 20 );
   fill(#ac85c4);
-  rect( adjustInt(845,'x'), screenHeight*8.73/10, adjustFloat( 240,'x'), adjustInt(40,'y'), 20 );
-  rect( adjustInt(1135,'x'), screenHeight*8.73/10, adjustFloat( 240,'x'), adjustInt(40,'y'), 20 );
+  rect( adjustInt(845,'x'), screenHeight*2/10, adjustFloat( 240,'x'), adjustInt(40,'y'), 20 );
+  rect( adjustInt(1135,'x'), screenHeight*2/10, adjustFloat( 240,'x'), adjustInt(40,'y'), 20 );
   //Text
   textSize(adjustInt(35,'x'));
   textAlign(CENTER);
@@ -714,10 +738,10 @@ void drawAdvertizingScreen()
   text( "Advertizing", adjustInt(990,'x'), screenHeight/13 );
   //text( "Commodities", adjustInt(1135,'x'), screenHeight/13 );
   textSize(adjustInt(20,'x'));
-  text( "Passenger", adjustInt(845,'x'), screenHeight*8.325/10 );
-  text( asCash(advertizeCost(merchant[currentPlayer].passengerAdd)), adjustInt(845,'x'), screenHeight*8.8/10 );
-  text( "Commodities", adjustInt(1135,'x'), screenHeight*8.325/10 );
-  text( asCash(advertizeCost(merchant[currentPlayer].goodsAdd)), adjustInt(1135,'x'), screenHeight*8.8/10 );
+  text( "Passenger", adjustInt(845,'x'), screenHeight*1.6/10 );
+  text( asCash(advertizeCost(merchant[currentPlayer].passengerAdd)), adjustInt(845,'x'), screenHeight*2.08/10 );
+  text( "Commodities", adjustInt(1135,'x'), screenHeight*1.6/10 );
+  text( asCash(advertizeCost(merchant[currentPlayer].goodsAdd)), adjustInt(1135,'x'), screenHeight*2.08/10 );
   
   for(Button b: advertizeButton)
     b.drawButton();
@@ -860,14 +884,33 @@ void drawTaxScreen()
   pop();
 }
 
+void resetButtonColors( Merchant m )
+{
+  //Reset add buttons
+  advertizeButton[2].col = 3;
+  advertizeButton[3].col = advertizeButton[4].col = advertizeButton[5].col = advertizeButton[6].col = advertizeButton[7].col = advertizeButton[8].col = 5;
+  advertizeButton[9].col = 3;
+  advertizeButton[10].col = advertizeButton[11].col = advertizeButton[12].col = advertizeButton[13].col = advertizeButton[14].col = advertizeButton[15].col = 5;
+
+  //Set left-side buttons based on funds in those categories
+  if( m.bankAccount > 0 ) mainButtonLeft[3].col = 1; else mainButtonLeft[3].col = 0;
+  if( m.loanTotal > 0 )   mainButtonLeft[4].col = 3; else mainButtonLeft[4].col = 0;
+  if( m.zinnTotal > 0 )   mainButtonLeft[5].col = 3; else mainButtonLeft[5].col = 0;
+  
+  //Set right-side buttons to thier orange "pending" color
+  mainButtonRight[0].col = mainButtonRight[1].col = mainButtonRight[2].col = mainButtonRight[3].col = mainButtonRight[4].col = 3;
+  if( merchant[currentPlayer].ship.wagesOwed == 0 ) mainButtonRight[3].col = 0;
+  if( merchant[currentPlayer].totalTax() == 0 ) mainButtonRight[4].col = 0;
+}
+
 //FOR TESTING
 void drawTestScreen()
 {
   background(0);
   drawStars();
-  //for( Planet p: planet )
-  //  p.drawSmallPlanet();
-  drawGraph( 50, 50 );
+  for( Planet p: planet )
+    p.drawSmallPlanet();
+  //drawGraph( 50, 50 );
 }
 
 //Draws stars (does not draw background)
@@ -1020,11 +1063,14 @@ String asCash( int amount )
   return output;
 }
 
+//CANNOT handle money exchanges
 String messageText( Message m )
 {
   switch( m )
   {
     case ZINN: return "    You are invited to the home of Ambrosia Flrrb, wealthy heiress and entrepreneur, on the imperial capital of " + planet[0].name + ". She graciously lends you the " + asCash(merchant[currentPlayer-1].zinnTotal) + " jeorbs needed to purchase your new ship.\n    Lady Flrrb fancies herself a friend of small businesses. After all, she started off small too, working from a roadside stand selling lemonaide NFTs.\n    You must pay " + merchant[currentPlayer-1].zinnInterest + "% interest per week, but that shouldn't be too difficult for a go-getting business- creature such as yourself. And if things go wrong, she could always repurpose your repossessed ship as a playhouse for her Xaxonian Pekingese.";
+    case NO_FUEL: //int towCost = ( abs(merchant[currentPlayer].ship.fuel)+int(merchant[currentPlayer].fuelCapacity*0.1) ) * merchant[currentPlayer].gasCost() * 3; merchant[currentPlayer].ship.fuel = int(merchant[currentPlayer].fuelCapacity*0.1;
+               return "    Looks like you ran out of gas. You will have to be towed to " + merchant[currentPlayer].currentPlanet.name + " and must pay " + asCash(merchant[currentPlayer].towCost()) + " jeorbs.";
   }
   
   return "ERROR";
@@ -1035,6 +1081,7 @@ PImage messageImage( Message m )
   switch( m )
   {
     case ZINN: return messagePic[0];
+    case NO_FUEL: return messagePic[1];
   }
   
   return null;
@@ -1042,6 +1089,6 @@ PImage messageImage( Message m )
 
 public enum Message
 {
-  ZINN,
+  ZINN, NO_FUEL,
   NONE
 }

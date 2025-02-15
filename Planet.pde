@@ -50,6 +50,8 @@ class Planet
   void drawSmallPlanet()
   {
     image(picSmall, xPos, yPos);
+    if( dist(mouseX,mouseY, xPos, yPos) < 75 )
+      text( name, xPos, yPos-100 );
   }
   
   public String toString()

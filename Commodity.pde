@@ -32,7 +32,33 @@ class Commodity
       case 7: return "eight";
       case 8: return "nine";
       case 9: return "tenth";
+      case 10: return "eleven";
+      case 11: return "12";
+      case 12: return "13";
+      case 13: return "14";
+      case 14: return "15";
+      case 15: return "16";
+      case 16: return "17";
+      case 17: return "18";
       default: return "garbage";
     }
   }
 }
+
+/*
+Seven planets, 18 commodities
+
+Sequins
+NFTs
+Covid Vaccines
+Pocket Squares
+Concert Tickets
+Kale
+Antiques
+Trading Cards
+Blacklight Posters
+Doughnut
+Wedding Cake
+Kobe Beef
+
+*/

@@ -30,7 +30,10 @@ import java.util.Collections;
 //Gas
 
 // ! Change all button colors when next player's turn starts ! (main menu, adds)
+//   Make loan/bank buttons change color when money is owed/saved
 //textLeading() changes space between lines, but rests with textSize(). Create a master method? (which adjusts)
+//change takeLoan() to go into debt
+//fix where towCost is calculated - can't happen in draw
 
 //Display Data
 Screen currentScreen, nextScreen;
@@ -171,6 +174,10 @@ void draw()
       drawPlanetScreen();
     break;
     
+    case MAP:
+      drawMapScreen();
+    break;
+    
     case PASSENGERS:
       drawPassengerScreen();
     break;
@@ -254,8 +261,7 @@ void checkNumpadUses()
       break;
       
     case BORROW:
-      if(!merchant[currentPlayer].takeLoan(numpadValue))
-        redWords("OVER BORROW LIMIT");
+      merchant[currentPlayer].takeLoan(numpadValue);
       break;
       
     case DEPOSIT:
@@ -265,6 +271,10 @@ void checkNumpadUses()
     case WITHDRAW:
       if(!merchant[currentPlayer].withdraw(numpadValue))
         redWords("INSUFFICIENT FUNDS");
+      break;
+
+    case GAS:
+      merchant[currentPlayer].buyGas(numpadValue);
       break;
       
     case TICKET:
@@ -348,7 +358,7 @@ int advertizeCost( int index )
 
 public void mousePressed()
 {
-  println( mouseX + " " + mouseY );
+  //println( mouseX + " " + mouseY );
 
   if( numpadUp )
   {
@@ -454,7 +464,13 @@ public void mousePressed()
     case MESSAGE:
     {
       if( OKButton.mouseOnButton() )
+      {
+        //got towed
+        if( currentMessage == Message.NO_FUEL )
+          merchant[currentPlayer].ship.fuel = int(merchant[currentPlayer].ship.fuelCapacity*0.1);
+          
         currentScreen = nextScreen;
+      }
     }
     return;
     
@@ -472,6 +488,7 @@ public void mousePressed()
     case PLANET_WELCOME:
     {
       currentScreen = Screen.MAIN;
+      resetButtonColors( merchant[currentPlayer] );
     }
     return;
     
@@ -517,7 +534,16 @@ public void mousePressed()
     case BANK:
     {
       if( bankButton[0].mouseOnButton() )
+      {
         currentScreen = Screen.MAIN;
+        
+        //Change color if money in bank
+        if( merchant[currentPlayer].bankAccount == 0 )
+          mainButtonLeft[3].col = 0;
+        else
+          mainButtonLeft[3].col = 1;
+      }
+        
       else if( bankButton[1].mouseOnButton() )
       {
         numpadUp = true;
@@ -538,7 +564,16 @@ public void mousePressed()
     case LOAN:
     {
       if( loanButton[0].mouseOnButton() )
+      {
         currentScreen = Screen.MAIN;
+        
+        //Change color if in debt
+        if( merchant[currentPlayer].loanTotal == 0 )
+          mainButtonLeft[4].col = 0;
+        else
+          mainButtonLeft[4].col = 3;
+      }
+        
       else if( loanButton[1].mouseOnButton() )
       {
         numpadUp = true;
@@ -559,7 +594,16 @@ public void mousePressed()
     case ZINN:
     {
       if( flrrbButton[0].mouseOnButton() )
+      {
         currentScreen = Screen.MAIN;
+        
+        //Change color if in debt
+        if( merchant[currentPlayer].zinnTotal == 0 )
+          mainButtonLeft[5].col = 0;
+        else
+          mainButtonLeft[5].col = 3;
+      }
+      
       else if( flrrbButton[1].mouseOnButton() ) //Pay some
       {
         numpadUp = true;
@@ -591,13 +635,29 @@ public void mousePressed()
     }
     return;
     
+    case MAP:
+    {
+      for( int i = 0; i < planet.length; i++ )
+        if( dist( mouseX, mouseY, planet[i].xPos, planet[i].yPos ) < 75 )
+          merchant[currentPlayer].travelToPlanet(i);
+          
+      if( mapBackButton.mouseOnButton() )
+        currentScreen = Screen.MAIN;
+    }
+    return;
+    
     case FUEL:
     {
       if( gasButton[0].mouseOnButton() )
         currentScreen = Screen.MAIN;
-      //bring up calculator  
         
-      if( gasButton[2].mouseOnButton() )
+      else if( gasButton[1].mouseOnButton() )
+      {
+        numpadUp = true;
+        use = NumpadPurpose.GAS;
+      }
+        
+      else if( gasButton[2].mouseOnButton() )
         if( merchant[currentPlayer].canFillGas() )
           merchant[currentPlayer].fillGas();
         else
@@ -801,7 +861,7 @@ public enum Screen
 
 public enum NumpadPurpose
 {
-  ZINN, BORROW, LOAN, DEPOSIT, WITHDRAW, TICKET,
+  ZINN, BORROW, LOAN, DEPOSIT, WITHDRAW, TICKET, GAS,
   NONE
 }
 

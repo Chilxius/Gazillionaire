@@ -78,6 +78,42 @@ class Merchant
     currentPlanet = planet[int(random(7))];
   }
   
+  void payMoney( int amount )
+  {
+    money -= amount;
+    if( money < 0 )
+    {
+      takeLoan( abs(money) );
+    }
+  }
+  
+  void travelToPlanet( int planetIndex )
+  {
+    println( "Travel Dist: " + currentPlanet.dist[planetIndex] );
+    
+    //Can't travel to same world
+    if( currentPlanet == planet[planetIndex] )
+    {
+      println("TRIED TO TRAVEL TO SAME PLANET");
+      return;
+    }
+    
+    //Check for enough gas
+    ship.fuel -= currentPlanet.dist[planetIndex];
+    if( ship.fuel < 0 )
+    {
+      currentScreen = Screen.MESSAGE;
+      currentMessage = Message.NO_FUEL;
+      payMoney( towCost() );
+    }
+    else
+      currentScreen = Screen.PLANET_WELCOME;
+    
+    //Change Planet
+    currentPlanet = planet[planetIndex];
+
+  }
+  
   int netWorth()
   {
     return (bankAccount+money+stockValue()) - (loanTotal+zinnTotal);
@@ -113,9 +149,29 @@ class Merchant
     ship.fuel = ship.fuelCapacity;
   }
   
+  void buyGas( int amount )
+  {
+    //Cap at missing amount
+    amount = min( amount, ship.fuelCapacity-ship.fuel );
+    
+    //Make sure they can afford it
+    int cost = amount * gasCost();
+    if( cost > money ) { redWords("NOT ENOUGH CASH"); return; }
+    
+    //Take money, give fuel
+    money -= cost;
+    ship.fuel += amount;
+  }
+  
   String gasFraction()
   {
     return ship.fuel + "/" + ship.fuelCapacity;
+  }
+  
+  //Bring fuel back to 10%, costs 2x normal fuel rate
+  int towCost()
+  {
+    return ( abs(merchant[currentPlayer].ship.fuel)+int(merchant[currentPlayer].ship.fuelCapacity*0.1) ) * merchant[currentPlayer].gasCost() * 2;
   }
   
   int addsCost()
@@ -205,15 +261,13 @@ class Merchant
   }
   
   //Returns false if player tries to take out too much money
-  boolean takeLoan( int amount )
+  void takeLoan( int amount )
   {
     if( loanTotal + amount > loanMax )
-      return false;
+      redWords("OVER BORROW LIMIT");
       
     money += amount;
     loanTotal += amount;
-    
-    return true;
   }
   
   void payZinn( int amount )

@@ -26,7 +26,7 @@ class PicButton extends Button
   
   boolean mouseOnButton()
   {
-    if( dist( mouseX, mouseY, xPos, yPos ) < (xSize+ySize)/4 )
+    if( dist( mouseX, mouseY, xPos, yPos ) < adjustFloat(137.5,'x') )
       return true;
     return false;
   }
