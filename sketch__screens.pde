@@ -279,7 +279,7 @@ void drawMessageScreen()
 void drawReviewScreen()
 {
   background(0,0,50);
-  drawGraph( 50, 50 );
+  merchantCashGraph.drawGraph();
   
   //Display player net worth
   push();
@@ -358,9 +358,9 @@ void drawShipInfoScreen()
   fill(175);
   rectMode(CORNER);
   strokeWeight(3);
-  rect(50,50,screenWidth-100,screenHeight-100);
-  for( int i = 50; i < screenHeight-50; i+=50 )
-    line( 50, i, screenWidth-50, i );
+  rect(adjustInt(50,'x'),adjustInt(50,'y'),screenWidth-adjustInt(100,'x'),screenHeight-adjustInt(100,'y'));
+  for( int i = adjustInt(50,'y'); i < screenHeight-adjustInt(50,'y'); i+=adjustInt(50,'y') )
+    line( adjustInt(50,'x'), i, screenWidth-adjustInt(50,'x'), i );
   fill(175);
   rect(adjustInt(425,'x'),adjustInt(560,'y'),adjustInt(430,'x'),adjustInt(150,'y'));
   //Bolts

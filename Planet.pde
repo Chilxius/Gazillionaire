@@ -26,6 +26,8 @@ class Planet
   
   int passengersAvailable = int(random(5,10));
   
+  History netHistory;
+  
   public Planet( int type )
   {
     //Set commodities and zero them out
@@ -45,6 +47,8 @@ class Planet
     planetColor = planetColors[type];
     
     index = type;
+    
+    netHistory = new History(name,planetColors[index],1000);
   }
   
   void drawSmallPlanet()

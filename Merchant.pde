@@ -52,7 +52,7 @@ class Merchant
     bankAccount = 0;
     loanTotal = 500;
     zinnTotal = 100000;
-    netHistory = new History(netWorth());
+    netHistory = new History(name,lineColor[currentPlayer],netWorth());
     currentPlanet = planet[int(random(7))];
   }
   
@@ -74,7 +74,7 @@ class Merchant
     bankAccount = 0;
     loanTotal = 0;
     zinnTotal = 100000;
-    netHistory = new History(netWorth());
+    netHistory = new History(name,lineColor[i],netWorth());
     currentPlanet = planet[int(random(7))];
   }
   
@@ -206,6 +206,10 @@ class Merchant
     ship.passengers += numPassengers;
     currentPlanet.passengersAvailable-=ship.passengers;
     money += numPassengers*ship.passengerPrice;
+    
+    //Passenger Tax
+    passTax += (numPassengers*ship.passengerPrice*passengerTax)/100;
+    mainButtonRight[4].col = 3;
   }
   
   void buyInsurance()
@@ -215,6 +219,18 @@ class Merchant
       money-=insuranceCost();
       insured = true;
     }
+  }
+  
+  boolean payTaxes()
+  {
+    if( money >= totalTax() )
+    {
+      money-=totalTax();
+      passTax = stuffTax = 0;
+      return true;
+    }
+    
+    return false;
   }
   
   void deposit( int amount )

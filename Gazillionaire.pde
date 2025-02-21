@@ -49,7 +49,7 @@ int commodityCount = 10; //Number of commodities in the game
 int playerCount; //Player count (1-6)   HUMAN players - total merchants is always 6
 int currentPlayer; //Current turn (0-5)  WILL NOT CORRESPOND TO PLAYER NUMBER, will correspond to turn order
 int currentWeek;
-int insuranceMulti = int(random(100))+1;
+int insuranceMulti = int(random(1000))+1;
 int gasMulti = int(random(100))+1;
 
 //Numpad Data
@@ -78,6 +78,10 @@ String computerName[] = {"Bennett","Alex","Brett","Todd","James","Alan"};
 //Red words (used for warnings)
 String redWords = "";
 float redWordsTimer = 0;
+
+//Graph Data
+LineGraph planetStocksGraph;
+LineGraph merchantCashGraph;
 
 //Color-changing Button Data
 //boolean [] buttonPressed = {false,false,false,false,false}; //Passenger, Adds, Insurance, Crew, Taxes
@@ -447,6 +451,11 @@ public void mousePressed()
           {
             merchant[currentPlayer] = new Merchant( currentPlayer++ );
           }
+          
+          
+          println("about to build graphs");
+          buildGraphs();
+          println("built graphs");
           nextScreen = Screen.WEEK_OVERVIEW;
         }
         else
@@ -764,7 +773,10 @@ public void mousePressed()
       if( paymentButton[1].mouseOnButton() )
       {
         //pay wages
-        mainButtonRight[4].col = 0;
+        if( merchant[currentPlayer].payTaxes() )
+          mainButtonRight[4].col = 0;
+        else
+          redWords("NOT ENOUGH CASH");
       }
     }
     return;
