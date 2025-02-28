@@ -371,7 +371,7 @@ int advertizeCost( int index )
 
 public void mousePressed()
 {
-  //println( mouseX + " " + mouseY );
+  println( mouseX + " " + mouseY );
 
   if( numpadUp )
   {
