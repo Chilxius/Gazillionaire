@@ -1,6 +1,6 @@
 //THE LINE GRAPH MAY LOOK WRONG ON DIFFERENT SCREEN RESOLUTIONS
 
-color planetGraphColors[] = {#ce7732,#1aa773,#777788,#eb5d2d,#f0c060,#469dbe,#f8aea3};
+color planetGraphColors[] = {color(150,130,90),#1aa773,#7777AA,#eb5d2d,#f0c060,#469dbe,#f8aea3};
 color lineColor [] = { color(200,0,0), color(250,140,0), color(250,250,0), color(0,250,0), color(0,0,250), color(200,0,250) };
 
 void buildGraphs()
@@ -11,7 +11,7 @@ void buildGraphs()
     merchantHistories[i] = merchant[i].netHistory;
   for( int i = 0; i < 7; i++ )
     planetHistories[i] = planet[i].netHistory;
-  planetStocksGraph = new LineGraph(adjustInt(50,'x'),adjustInt(100,'y'),adjustFloat(1180,'x'),adjustInt(600,'y'),"Planet Stock Exchange","Value","Week",merchantHistories);
+  planetStocksGraph = new LineGraph(adjustInt(50,'x'),adjustInt(50,'y'),875,adjustInt(650,'y'),"Planet Stock Exchange","Value","Week",planetHistories);
   merchantCashGraph = new LineGraph(adjustInt(50,'x'),adjustInt(100,'y'),adjustFloat(1180,'x'),adjustInt(600,'y'),"Company History","Net Worth","Week",merchantHistories);
 }
 
@@ -86,6 +86,7 @@ class LineGraph
     push();
     textAlign(CENTER);
     strokeCap(SQUARE);
+    rectMode(CORNER);
     
     //Graph Title
     textSize(xSize/20);
@@ -138,16 +139,41 @@ class LineGraph
     float lineStart = xPos+xSize-xSize/6;
     float yStart = yPos+ySize/20;
     spacing = (ySize-(ySize/20+ySize*0.10))/12;
-    strokeWeight(ySize/100);
-    strokeCap(PROJECT);
+    strokeWeight(ySize/200);
+    //strokeCap(PROJECT);
+    strokeCap(ROUND);
     strokeJoin(MITER);
+    //Drawn twice so lines go above and below other lines
+    //for( History h: histories )
+    //{
+    //  stroke( h.lineColor );
+    //  noFill();
+    //  beginShape();
+    //  for( int i = 1; i < min(10,h.netHistory.size()); i+=1 )
+    //  {
+    //    float previousPoint = yStart + (float(startNum)-h.netHistory.get(i))/lineIncrement*spacing;
+    //    float pointOnGraph = yStart + (float(startNum)-h.netHistory.get(i-1))/lineIncrement*spacing;
+    //    line( lineStart-i*dotSpace, previousPoint, lineStart-(i-1)*dotSpace, pointOnGraph );
+    //  }
+    //  endShape();
+    //}
     for( History h: histories )
     {
       stroke( h.lineColor );
-      for( int i = 1; i < min(10,h.netHistory.size()); i++ )
+      for( int i = 1; i < min(10,h.netHistory.size()); i+=2 )
       {
         float previousPoint = yStart + (float(startNum)-h.netHistory.get(i))/lineIncrement*spacing;
         float pointOnGraph = yStart + (float(startNum)-h.netHistory.get(i-1))/lineIncrement*spacing;
+        line( lineStart-i*dotSpace, previousPoint, lineStart-(i-1)*dotSpace, pointOnGraph );
+      }
+    }
+    for( int j = histories.length-1; j >=0; j-- )
+    {
+      stroke( histories[j].lineColor );
+      for( int i = 2; i < min(10,histories[j].netHistory.size()); i+=2 )
+      {
+        float previousPoint = yStart + (float(startNum)-histories[j].netHistory.get(i))/lineIncrement*spacing;
+        float pointOnGraph = yStart + (float(startNum)-histories[j].netHistory.get(i-1))/lineIncrement*spacing;
         line( lineStart-i*dotSpace, previousPoint, lineStart-(i-1)*dotSpace, pointOnGraph );
       }
     }

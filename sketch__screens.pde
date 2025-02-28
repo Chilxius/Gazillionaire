@@ -15,6 +15,7 @@ Button [] mainButtonLeft = new Button[6];
 Button [] mainButtonMiddle = new Button[2];
 Button [] mainButtonRight = new Button[6];
 PicButton planetButton, leaveButton;
+Button [] stockButton = new Button[5];
 Button [] bankButton = new Button[5];
 Button [] loanButton = new Button[5];
 Button [] flrrbButton = new Button[3];
@@ -80,6 +81,8 @@ void setupScreenData()
   screenPic[7] = loadImage("billboardSquare.png"); screenPic[7].resize(0,adjustInt(650,'y') ); //Advertizing
   screenPic[8] = loadImage("gasStation.png");      screenPic[8].resize(0,adjustInt(650,'y') ); //Gas
   
+  println( screenPic[0].width );
+  
   mainButtonLeft[0] = new Button( 1280*1.1/8, 800*1/7, 1280/3.9, 800/10, 0, "Ship Info");
   mainButtonLeft[1] = new Button( 1280*1.1/8, 800*2/7, 1280/3.9, 800/10, 0, "Warehouse");
   mainButtonLeft[2] = new Button( 1280*1.1/8, 800*3/7, 1280/3.9, 800/10, 0, "Stocks");
@@ -99,6 +102,12 @@ void setupScreenData()
   mainButtonRight[3] = new Button( 1280*6.9/8, 800*4/7, 1280/3.9, 800/10, 3, "Pay Crew");
   mainButtonRight[4] = new Button( 1280*6.9/8, 800*5/7, 1280/3.9, 800/10, 3, "Taxes");
   mainButtonRight[5] = new Button( 1280*6.9/8, 800*6/7, 1280/3.9, 800/10, 2, "Save/Quit");
+  
+  stockButton[0] = new Button( 1280*1/10, 800*9.5/10, 1280/5.1, 800/15, 5, "<< Back" );
+  stockButton[1] = new Button( 1280*3/10, 800*9.5/10, 1280/5.1, 800/15, 1, "Buy" );
+  stockButton[2] = new Button( 1280*1/2,  800*9.5/10, 1280/5.1, 800/15, 1, "Buy MAX" );
+  stockButton[3] = new Button( 1280*7/10, 800*9.5/10, 1280/5.1, 800/15, 0, "Sell" );
+  stockButton[4] = new Button( 1280*9/10, 800*9.5/10, 1280/5.1, 800/15, 0, "Sell MAX" );
   
   bankButton[0] = new Button( 1280*1/10, 800*9.5/10, 1280/5.1, 800/15, 5, "<< Back" );
   bankButton[1] = new Button( 1280*3/10, 800*9.5/10, 1280/5.1, 800/15, 1, "Deposit" );
@@ -282,31 +291,31 @@ void drawReviewScreen()
   merchantCashGraph.drawGraph();
   
   //Display player net worth
-  push();
-  stroke(255);
-  strokeWeight(1);
-  line( adjustInt(915,'x'), adjustInt(90,'y'), adjustInt(1160,'x'), adjustInt(90,'y') );
-  fill(255);
-  textSize(adjustInt(50,'x'));
-  textAlign(CENTER);
-  text("Week " + currentWeek, adjustInt( 1040, 'x' ), adjustInt( 75, 'y' ) );
-  textSize(adjustInt(30,'x'));
-  textAlign(LEFT);
-  stroke(255);
-  for( int i = 0; i < 6; i++)
-  {
-    fill(255);
-    text( merchant[i].name, adjustInt(950,'x'), adjustInt(150+i*110,'y') );
-    text( asCash(merchant[i].netWorth()), adjustInt(950,'x'), adjustInt(150+i*110+40,'y') );
-    fill(lineColor[i]);
-    circle( adjustInt(900,'x'), adjustInt(150+i*110,'y'), 30 );
-  }
-  textSize(adjustInt(50,'x'));
-  fill(255);
-  textAlign(CENTER);
-  text("GOAL",adjustInt(425,'x'),adjustInt(610,'y'));
-  text(asCash(cashGoal),adjustInt(425,'x'),adjustInt(680,'y'));
-  pop();
+  //push();
+  //stroke(255);
+  //strokeWeight(1);
+  //line( adjustInt(915,'x'), adjustInt(90,'y'), adjustInt(1160,'x'), adjustInt(90,'y') );
+  //fill(255);
+  //textSize(adjustInt(50,'x'));
+  //textAlign(CENTER);
+  //text("Week " + currentWeek, adjustInt( 1040, 'x' ), adjustInt( 75, 'y' ) );
+  //textSize(adjustInt(30,'x'));
+  //textAlign(LEFT);
+  //stroke(255);
+  //for( int i = 0; i < 6; i++)
+  //{
+  //  fill(255);
+  //  text( merchant[i].name, adjustInt(950,'x'), adjustInt(150+i*110,'y') );
+  //  text( asCash(merchant[i].netWorth()), adjustInt(950,'x'), adjustInt(150+i*110+40,'y') );
+  //  fill(lineColor[i]);
+  //  circle( adjustInt(900,'x'), adjustInt(150+i*110,'y'), 30 );
+  //}
+  //textSize(adjustInt(50,'x'));
+  //fill(255);
+  //textAlign(CENTER);
+  //text("GOAL",adjustInt(425,'x'),adjustInt(610,'y'));
+  //text(asCash(cashGoal),adjustInt(425,'x'),adjustInt(680,'y'));
+  //pop();
   
   OKButton.drawButton();
 }
@@ -421,14 +430,51 @@ void drawShipInfoScreen()
   OKButton.drawButton();
 }
 
-void drawStockMarketScreen()
+void drawWarehouseScreen()
 {
   
 }
 
-void drawWarehouseScreen()
+void drawStockMarketScreen()
 {
+  push();
+  background(50,50,0);
   
+  //Draw graph
+  planetStocksGraph.drawGraph();
+
+  //Info
+  noStroke();
+  rectMode(CENTER);
+  fill(0,140,100);
+  rect( adjustInt(1000,'x'), screenHeight*1/5, screenWidth/3, adjustInt(100,'y'), 20 );
+  rect( adjustInt(1000,'x'), screenHeight*2/5, screenWidth/3, adjustInt(100,'y'), 20 );
+  rect( adjustInt(1000,'x'), screenHeight*3/5, screenWidth/3, adjustInt(100,'y'), 20 );
+  rect( adjustInt(1000,'x'), screenHeight*4/5, screenWidth/3, adjustInt(100,'y'), 20 );
+  fill(150,240,150);
+  rect( adjustInt(1000,'x'), screenHeight*1.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
+  rect( adjustInt(1000,'x'), screenHeight*2.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
+  rect( adjustInt(1000,'x'), screenHeight*3.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
+  rect( adjustInt(1000,'x'), screenHeight*4.1/5, screenWidth/3.1, adjustInt(50,'y'), 20 );
+  textSize(adjustInt(35,'x'));
+  textAlign(CENTER);
+  fill(200);
+  text( merchant[currentPlayer].currentPlanet.name + " Trading Floor", adjustInt(1000,'x'), screenHeight/15 );
+  fill(0);
+  textSize(adjustInt(20,'x'));
+  text( "Shares Available / Current Value", adjustInt(1000,'x'), screenHeight*0.85/5 );
+  text( merchant[currentPlayer].currentPlanet.sharesForPurchase + " / " + asCash(merchant[currentPlayer].currentPlanet.netHistory.netHistory.get(0)), adjustInt(1000,'x'), screenHeight*1.15/5 );
+  text( "Your Shares in " + merchant[currentPlayer].currentPlanet.name +" / Purchase Price", adjustInt(1000,'x'), screenHeight*1.85/5 );
+  text( merchant[currentPlayer].shares[planetNumber(merchant[currentPlayer].currentPlanet)] + " / " +asCash(int(merchant[currentPlayer].shareValues[planetNumber(merchant[currentPlayer].currentPlanet)])), adjustInt(1000,'x'), screenHeight*2.15/5 );
+  text( "Transaction", adjustInt(1000,'x'), screenHeight*2.85/5 );
+  text( 0, adjustInt(1000,'x'), screenHeight*3.15/5 );
+  text( "Your Cash", adjustInt(1000,'x'), screenHeight*3.85/5 );
+  text( asCash(merchant[currentPlayer].money), adjustInt(1000,'x'), screenHeight*4.15/5 );
+  
+  for( Button b: stockButton )
+    b.drawButton();
+
+  pop();
 }
 
 void drawBankScreen()

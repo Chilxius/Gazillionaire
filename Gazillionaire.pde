@@ -31,6 +31,7 @@ import java.util.Collections;
 
 // ! Change all button colors when next player's turn starts ! (main menu, adds)
 //   Make loan/bank buttons change color when money is owed/saved
+//   Update planets' available shares each round
 //textLeading() changes space between lines, but rests with textSize(). Create a master method? (which adjusts)
 //change takeLoan() to go into debt
 //fix where towCost is calculated - can't happen in draw
@@ -154,6 +155,14 @@ void draw()
       drawShipInfoScreen();
     break;
     
+    case WAREHOUSE:
+      drawWarehouseScreen();
+    break;
+    
+    case STOCK:
+      drawStockMarketScreen();
+    break;
+          
     case BANK:
       drawBankScreen();
     break;
@@ -540,6 +549,28 @@ public void mousePressed()
     }
     return;
     
+    case STOCK:
+    {
+      if( stockButton[0].mouseOnButton() )
+        currentScreen = Screen.MAIN;
+        
+      else if( stockButton[1].mouseOnButton() )
+      {
+        numpadUp = true;
+        use = NumpadPurpose.BUY_STOCK;
+      }
+      else if( bankButton[2].mouseOnButton() )
+        merchant[currentPlayer].buyStocks();
+      else if( loanButton[3].mouseOnButton() )
+      {
+        numpadUp = true;
+        use = NumpadPurpose.SELL_STOCK;
+      }
+      else if( bankButton[4].mouseOnButton() )
+        merchant[currentPlayer].sellStocks();
+    }
+    return;
+    
     case BANK:
     {
       if( bankButton[0].mouseOnButton() )
@@ -874,6 +905,7 @@ public enum Screen
 public enum NumpadPurpose
 {
   ZINN, BORROW, LOAN, DEPOSIT, WITHDRAW, TICKET, GAS,
+  BUY_STOCK, SELL_STOCK,
   NONE
 }
 

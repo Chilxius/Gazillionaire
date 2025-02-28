@@ -1,9 +1,9 @@
 //Koo Kee - Request lower tariffs and taxes
 //Stittle - Request better interest rates (loan/bank) or higher credit limit
-//Ludda   - Wholesale fuel
 //Starlite- Purchase stocks from other planets
-//Rockulus- Random upgrades
+//Ludda   - Wholesale fuel
 //Kezo    - Offered cheaper random goods
+//Rockulus- Random upgrades
 //Cake    - Make crew happy / remove debts
 
 String planetNames[] =       {"Koo Kee",                       "Stittle",                      "Starlite",                 "Ludda",              "Kezo",              "Rockulus",                             "Cake"};
@@ -26,6 +26,8 @@ class Planet
   
   int passengersAvailable = int(random(5,10));
   
+  int sharesForPurchase = 10;
+  
   History netHistory;
   
   public Planet( int type )
@@ -44,11 +46,15 @@ class Planet
     picLandscape = loadImage("p_land_"+type+".png"); picLandscape.resize(0,adjustInt(650,'y'));
     landscapeBig = loadImage("p_land_"+type+".png"); landscapeBig.resize(adjustInt(1280,'x'),0);
     //landscapeBig = loadImage("p_land_"+type+".png"); landscapeBig.resize(0,int(800));
-    planetColor = planetColors[type];
+    planetColor = planetGraphColors[type];
     
     index = type;
     
-    netHistory = new History(name,planetColors[index],1000);
+    netHistory = new History(name,planetColor,int(random(1000)));
+    netHistory.addValue( int(random(1000) ) );
+    netHistory.addValue( int(random(1000) ) );
+    netHistory.addValue( int(random(1000) ) );
+    netHistory.addValue( int(random(1000) ) );
   }
   
   void drawSmallPlanet()
@@ -61,6 +67,22 @@ class Planet
   public String toString()
   {
     return name;
+  }
+}
+
+public int planetNumber( Planet p )
+{
+  switch( p.name )
+  {
+    case "Koo Kee": return 0;
+    case "Stittle": return 1;
+    case "Starlite": return 2;
+    case "Ludda": return 3;
+    case "Kezo": return 4;
+    case "Rockulus": return 5;
+    case "Cake": return 6;
+    
+    default: println("ERROR: planet out of range"); return 0;
   }
 }
 

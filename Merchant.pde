@@ -16,6 +16,9 @@ class Merchant
   
   int gasBase = 2;
   
+  int [] shares = {2,0,0,0,0,0,0};
+  float [] shareValues = {50,0,0,0,0,0,0};
+  
   int bankAccount;
   int bankInterest = 1;
   int bankLastEarned = 0;
@@ -177,6 +180,49 @@ class Merchant
   int addsCost()
   {
     return advertizeCost(passengerAdd)+advertizeCost(goodsAdd);
+  }
+  
+  void buyStocks()
+  {
+    buyStocks( planetNumber(currentPlanet), -1 );
+  }
+  
+  //-1 to buy all
+  void buyStocks( int p, int num )
+  {
+    println( p + " " + num );
+    
+    if( num == -1 || num > planet[p].sharesForPurchase)
+      num = planet[p].sharesForPurchase;
+
+    if( planet[p].netHistory.netHistory.get(0)*num > money )
+      redWords("NOT ENOUGH CASH");
+    else
+    {
+      money -= planet[p].netHistory.netHistory.get(0)*num;
+      planet[p].sharesForPurchase -= num;
+      recalculatePurchaseValue( p, num );
+    }
+  }
+  
+  void sellStocks()
+  {
+    sellStocks( planetNumber(currentPlanet), -1 );
+  }
+  
+  //-1 to sell all
+  void sellStocks( int p, int num )
+  {
+    if( num == -1 ) num = planet[p].sharesForPurchase;
+  }
+  
+  void recalculatePurchaseValue( int p, int n )
+  {
+    int totalStock = shares[p] + n;
+    float newValue = ( (shareValues[p]*shares[p]) + (planet[p].netHistory.netHistory.get(0)*n) )/totalStock;
+    
+    shareValues[p] = newValue;
+    shares[p] = totalStock;
   }
   
   void buyAdds()
