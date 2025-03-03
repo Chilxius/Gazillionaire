@@ -467,7 +467,7 @@ void drawStockMarketScreen()
   text( "Your Shares in " + merchant[currentPlayer].currentPlanet.name +" / Purchase Price", adjustInt(1000,'x'), screenHeight*1.85/5 );
   text( merchant[currentPlayer].shares[planetNumber(merchant[currentPlayer].currentPlanet)] + " / " +asCash(int(merchant[currentPlayer].shareValues[planetNumber(merchant[currentPlayer].currentPlanet)])), adjustInt(1000,'x'), screenHeight*2.15/5 );
   text( "Transaction", adjustInt(1000,'x'), screenHeight*2.85/5 );
-  text( 0, adjustInt(1000,'x'), screenHeight*3.15/5 );
+  text( asCash(merchant[currentPlayer].shareTransaction), adjustInt(1000,'x'), screenHeight*3.15/5 );
   text( "Your Cash", adjustInt(1000,'x'), screenHeight*3.85/5 );
   text( asCash(merchant[currentPlayer].money), adjustInt(1000,'x'), screenHeight*4.15/5 );
   

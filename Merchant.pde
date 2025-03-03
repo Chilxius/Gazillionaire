@@ -18,6 +18,7 @@ class Merchant
   
   int [] shares = {2,0,0,0,0,0,0};
   float [] shareValues = {50,0,0,0,0,0,0};
+  int shareTransaction = 0;
   
   int bankAccount;
   int bankInterest = 1;
@@ -190,8 +191,6 @@ class Merchant
   //-1 to buy all
   void buyStocks( int p, int num )
   {
-    println( p + " " + num );
-    
     if( num == -1 || num > planet[p].sharesForPurchase)
       num = planet[p].sharesForPurchase;
 
@@ -200,6 +199,7 @@ class Merchant
     else
     {
       money -= planet[p].netHistory.netHistory.get(0)*num;
+      shareTransaction -= planet[p].netHistory.netHistory.get(0)*num;
       planet[p].sharesForPurchase -= num;
       recalculatePurchaseValue( p, num );
     }
@@ -213,7 +213,15 @@ class Merchant
   //-1 to sell all
   void sellStocks( int p, int num )
   {
-    if( num == -1 ) num = planet[p].sharesForPurchase;
+    if( num == -1 || num > merchant[currentPlayer].shares[p] )
+      num = merchant[currentPlayer].shares[p];
+      
+    money += shareValues[p]*num;
+    shareTransaction += shareValues[p]*num;
+    shares[p]-=num;
+    if( shares[p] == 0 )
+      shareValues[p]=0;
+    planet[p].sharesForPurchase += num;
   }
   
   void recalculatePurchaseValue( int p, int n )

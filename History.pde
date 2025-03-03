@@ -11,7 +11,7 @@ void buildGraphs()
     merchantHistories[i] = merchant[i].netHistory;
   for( int i = 0; i < 7; i++ )
     planetHistories[i] = planet[i].netHistory;
-  planetStocksGraph = new LineGraph(adjustInt(25,'x'),adjustInt(50,'y'),adjustInt(750,'x'),adjustInt(650,'y'),"Planet Stock Exchange","Value","Week",planetHistories);
+  planetStocksGraph = new LineGraph(adjustInt(25,'x'),adjustInt(75,'y'),adjustInt(740,'x'),adjustInt(640,'y'),"Planet Stock Exchange","Value","Week",planetHistories);
   merchantCashGraph = new LineGraph(adjustInt(50,'x'),adjustInt(100,'y'),adjustFloat(1180,'x'),adjustInt(600,'y'),"Company History","Net Worth","Week",merchantHistories);
 }
 

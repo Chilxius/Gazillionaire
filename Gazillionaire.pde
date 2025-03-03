@@ -269,6 +269,14 @@ void checkNumpadUses()
       merchant[currentPlayer].payZinn(numpadValue);
       break;
       
+    case BUY_STOCK:
+      merchant[currentPlayer].buyStocks(planetNumber(merchant[currentPlayer].currentPlanet),numpadValue);
+      break;
+      
+    case SELL_STOCK:
+      merchant[currentPlayer].sellStocks(planetNumber(merchant[currentPlayer].currentPlanet),numpadValue);
+      break;
+      
     case LOAN:
       merchant[currentPlayer].payLoan(numpadValue);
       break;
