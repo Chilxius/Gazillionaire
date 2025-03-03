@@ -48,17 +48,53 @@ class Commodity
 /*
 Seven planets, 18 commodities
 
-Sequins
 NFTs
-Covid Vaccines
-Pocket Squares
-Concert Tickets
-Kale
+Kobe beef
+Trading cards
+Concert tickets
+Didgeridoos
+Wedding cakes
+Blacklight posters
+Garden weasels
+Covid vaccines
+Doughnuts
+Trapper keepers
+Betamax cassettes
+Pocket squares
 Antiques
-Trading Cards
-Blacklight Posters
-Doughnut
-Wedding Cake
-Kobe Beef
+Paperweights
+Pot holders
+Kale
+Sequins
 
+Sand
+Crème brûlée
+Organic Kale
+Comic Books
+Stickers
+Alarm Clocks
+Fake Moustaches
+Strobe Lights
+
+
+*/
+/*
+Cantaloupe
+Jelly Beans
+Moon Ferns
+Frog Legs
+Whip Cream
+Babel Seeds
+Diapers
+Umbrellas
+Toasters
+Polyester
+Hair Tonic
+Lava Lamps
+Oxygen
+Oggle Sand
+Kryptoons
+X Fuels
+Gems
+Exotic
 */
