@@ -46,7 +46,7 @@ int cashGoal = 5000000;
 int passengerTax = 15;
 int importTariff = 3;
 int exportTariff = 2;
-int commodityCount = 10; //Number of commodities in the game
+int commodityCount = 18; //Number of commodities in the game
 int playerCount; //Player count (1-6)   HUMAN players - total merchants is always 6
 int currentPlayer; //Current turn (0-5)  WILL NOT CORRESPOND TO PLAYER NUMBER, will correspond to turn order
 int currentWeek;
@@ -87,8 +87,8 @@ LineGraph merchantCashGraph;
 //Color-changing Button Data
 //boolean [] buttonPressed = {false,false,false,false,false}; //Passenger, Adds, Insurance, Crew, Taxes
 
-//TEST
-//Button testButton;// = new Button(300,300,200,100,color(0,200,0),"Test");
+//Commodity Data
+String commodityName[] = new String[commodityCount];
 
 void setup()
 {
@@ -100,6 +100,7 @@ void setup()
   screenHeight = height;
   textFont( createFont("Lucida Sans", 128) );
   setupScreenData();
+  setupCommodities();
   setupPlanets();
   buildShips();
 }
@@ -177,6 +178,14 @@ void draw()
     
     case FUEL:
       drawGasScreen();
+    break;
+    
+    case MARKET:
+      drawMarketScreen();
+    break;
+    
+    case SUPPLY:
+      drawSupplyScreen();
     break;
     
     case PLANETSPLASH:
@@ -710,6 +719,13 @@ public void mousePressed()
           merchant[currentPlayer].fillGas();
         else
           redWords("NOT ENOUGH CASH");
+    }
+    return;
+    
+    case MARKET:
+    {
+      if( marketButton[0].mouseOnButton() )
+        currentScreen = Screen.MAIN;
     }
     return;
     
