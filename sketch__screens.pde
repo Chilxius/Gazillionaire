@@ -185,7 +185,7 @@ void setupScreenData()
 void drawTitleScreen()
 {
   push();
-  background(0);
+  background(0,200,0);
   drawStars();
   fill(#EBDC2D);
   textSize(adjustFloat(150,'x')); //100 on 1280
