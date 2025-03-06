@@ -20,6 +20,8 @@ Button [] bankButton = new Button[5];
 Button [] loanButton = new Button[5];
 Button [] flrrbButton = new Button[3];
 Button mapBackButton;
+Button [] marketButton = new Button[3];
+Button [] supplyButton = new Button[3];
 Button [] paymentButton = new Button[2];
 Button [] insureButton = new Button[2];
 Button [] passengerButton = new Button[3];
@@ -39,7 +41,7 @@ Message currentMessage;
 float starburstRotation;
 
 PImage messagePic [] = new PImage[20]; //UPDATE AS NEEDED
-PImage screenPic [] = new PImage[10]; //UPDATE AS NEEDED
+PImage screenPic [] = new PImage[11]; //UPDATE AS NEEDED
 
 //Sets up buttons and other data for the different screens
 void setupScreenData()
@@ -71,15 +73,17 @@ void setupScreenData()
   messagePic[0] = loadImage("flrrb.png");          messagePic[0].resize( 0, adjustInt(350,'y') ); //Lady Flrrb's tower
   messagePic[1] = loadImage("gasStation.png");     messagePic[1].resize( 0, adjustInt(350,'y') );
   
-  screenPic[0] = loadImage("flrrb.png");           screenPic[0].resize(0,adjustInt(650,'y') ); //Lady Flrrb's tower
-  screenPic[1] = loadImage("bank.png");            screenPic[1].resize(0,adjustInt(650,'y') ); //Bank buildings (for loan office - poorly named)
-  screenPic[2] = loadImage("piggy.png");           screenPic[2].resize(0,adjustInt(650,'y') ); //Piggy Bank
-  screenPic[3] = loadImage("crew.png");            screenPic[3].resize(0,adjustInt(650,'y') ); //Alien Lounge
-  screenPic[4] = loadImage("tax.png");             screenPic[4].resize(0,adjustInt(650,'y') ); //Tax Crab
-  screenPic[5] = loadImage("insurance.png");       screenPic[5].resize(0,adjustInt(650,'y') ); //Burning Ship
-  screenPic[6] = loadImage("passengers.png");      screenPic[6].resize(0,adjustInt(600,'y') ); //Passeners
-  screenPic[7] = loadImage("billboardSquare.png"); screenPic[7].resize(0,adjustInt(650,'y') ); //Advertizing
-  screenPic[8] = loadImage("gasStation.png");      screenPic[8].resize(0,adjustInt(650,'y') ); //Gas
+  screenPic[0] = loadImage("flrrb.png");           screenPic[ 0].resize(0,adjustInt(650,'y') ); //Lady Flrrb's tower
+  screenPic[1] = loadImage("bank.png");            screenPic[ 1].resize(0,adjustInt(650,'y') ); //Bank buildings (for loan office - poorly named)
+  screenPic[2] = loadImage("piggy.png");           screenPic[ 2].resize(0,adjustInt(650,'y') ); //Piggy Bank
+  screenPic[3] = loadImage("crew.png");            screenPic[ 3].resize(0,adjustInt(650,'y') ); //Alien Lounge
+  screenPic[4] = loadImage("tax.png");             screenPic[ 4].resize(0,adjustInt(650,'y') ); //Tax Crab
+  screenPic[5] = loadImage("insurance.png");       screenPic[ 5].resize(0,adjustInt(650,'y') ); //Burning Ship
+  screenPic[6] = loadImage("passengers.png");      screenPic[ 6].resize(0,adjustInt(600,'y') ); //Passeners
+  screenPic[7] = loadImage("billboardSquare.png"); screenPic[ 7].resize(0,adjustInt(650,'y') ); //Advertizing
+  screenPic[8] = loadImage("gasStation.png");      screenPic[ 8].resize(0,adjustInt(650,'y') ); //Gas
+  screenPic[9] = loadImage("market_back.png");     screenPic[ 9].resize(adjustInt(950,'x'),0 ); //Market
+  screenPic[10] = loadImage("supply_back.png");    screenPic[10].resize(adjustInt(950,'x'),0 ); //Supply
   
   println( screenPic[0].width );
   
@@ -126,6 +130,14 @@ void setupScreenData()
   flrrbButton[2] = new Button( 1280*5/6, 800*9.5/10, 1280/3.2, 800/15, 1, "Pay Back MAX" );
   
   mapBackButton = new Button( 1280*1/8, 800*9.5/10, 1280/4.4, 800/15, 5, "<< Back" );
+  
+  marketButton[0] = new Button( 1280*1/6, 800*9.5/10, 1280/3.2, 800/15, 5, "<< Back" );
+  marketButton[1] = new Button( 1280*2/4, 800*9.5/10, 1280/3.2, 800/15, 0, "Planet Supply" );
+  marketButton[2] = new Button( 1280*5/6, 800*9.5/10, 1280/3.2, 800/15, 0, "Warehouse" );
+  
+  supplyButton[0] = new Button( 1280*1/6, 800*9.5/10, 1280/3.2, 800/15, 5, "<< Back" );
+  supplyButton[1] = new Button( 1280*2/4, 800*9.5/10, 1280/3.2, 800/15, 4, "Marketplace" );
+  supplyButton[2] = new Button( 1280*5/6, 800*9.5/10, 1280/3.2, 800/15, 0, "Warehouse" );
   
   paymentButton[0] = new Button( 1280*1/4, 800*9.5/10, 1280/2.2, 800/15, 5, "<< Back" );
   paymentButton[1] = new Button( 1280*3/4, 800*9.5/10, 1280/2.2, 800/15, 0, "Pay Up" );
@@ -659,6 +671,52 @@ void drawMapScreen()
   mapBackButton.drawButton();
 }
 
+void drawMarketScreen()
+{
+  push();
+  background(#549B62);
+  
+  //Market Window
+  //fill(255);
+  //rect( adjustInt(25,'x'), adjustInt(25,'y'), adjustInt(950,'x'), adjustInt(700,'y') );
+  //imageMode(CORNER);
+  //tint(255,75);
+  //image( screenPic[9].get(0,0,adjustInt(950,'x'),adjustInt(700,'y')), adjustInt(25,'x'), adjustInt(25,'y'), adjustInt(950,'x'),adjustInt(700,'y') );
+  
+  //Interactive Market Items
+  interactiveMarket();
+  
+  //Info
+  noStroke();
+  rectMode(CENTER);
+  fill(#625595);
+  rect( adjustInt(1135,'x'), screenHeight*1/5, adjustFloat( 250,'x'), adjustInt(100,'y'), 20 );
+  rect( adjustInt(1135,'x'), screenHeight*2/5, adjustFloat( 250,'x'), adjustInt(100,'y'), 20 );
+  fill(#ac85c4);
+  rect( adjustInt(1135,'x'), screenHeight*1.1/5, adjustFloat( 240,'x'), adjustInt(50,'y'), 20 );
+  rect( adjustInt(1135,'x'), screenHeight*2.1/5, adjustFloat( 240,'x'), adjustInt(50,'y'), 20 );
+  //Text
+  textSize(adjustInt(35,'x'));
+  textAlign(CENTER);
+  fill(0);
+  text( "Marketplace", adjustInt(1135,'x'), screenHeight/15 );
+  textSize(adjustInt(20,'x'));
+  text( "Your Cash", adjustInt(1135,'x'), screenHeight*0.85/5 );
+  text( asCash(merchant[currentPlayer].money), adjustInt(1135,'x'), screenHeight*1.15/5 );
+  text( "Profit", adjustInt(1135,'x'), screenHeight*1.85/5 );
+  text( asCash(merchant[currentPlayer].marketProfit), adjustInt(1135,'x'), screenHeight*2.15/5 );
+  
+  for( Button b: marketButton )
+    b.drawButton();
+  pop();
+}
+
+void drawSupplyScreen()
+{
+  for( Button b: supplyButton )
+    b.drawButton();
+}
+
 void drawGasScreen()
 {
   push();
@@ -1008,6 +1066,42 @@ void drawFuelGage( int type )
     noFill();
     rect( screenWidth/2-adjustInt(230,'x'), adjustInt(540,'y'), adjustInt(460,'x'), 40, 10 );
   }
+}
+
+//Clickable market with commodity data - only shows available commodities
+void interactiveMarket()
+{
+  push();
+  
+  int boxX = adjustInt(25,'x');
+  int boxY = adjustInt(25,'y');
+  int ySpace = adjustInt(700,'y')/19;
+  int xSpace = adjustInt(950,'x')/7;
+  
+  //Box and Image
+  fill(255);
+  rect( adjustInt(25,'x'), adjustInt(25,'y'), adjustInt(950,'x'), adjustInt(700,'y') );
+  imageMode(CORNER);
+  tint(255,75);
+  image( screenPic[9].get(0,0,adjustInt(950,'x'),adjustInt(700,'y')), adjustInt(25,'x'), adjustInt(25,'y'), adjustInt(950,'x'),adjustInt(700,'y') );
+  
+  textAlign(LEFT);
+  fill(0);
+  
+  //Top Line
+  stroke(0);
+  strokeWeight(ySpace/20.0);
+  line( boxX*1.5, boxY+ySpace, boxX*0.5+adjustInt(950,'x'), boxY+ySpace );
+  textSize(ySpace*0.75);
+  text( "Line 0", boxX*1.5, boxY+ySpace*0.75);
+  for( int j = 0; j < 6; j++ )
+    for( int i = 0; i < 18; i++ )
+      if( j == 1 )
+        continue;
+      else
+        text( commodityName[i], boxX*1.5+xSpace*j, boxY+ySpace+(i+1)*ySpace);
+ 
+  pop();
 }
 
 //Draws the number pad for numeric inputs

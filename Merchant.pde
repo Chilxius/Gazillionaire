@@ -8,6 +8,9 @@ class Merchant
   boolean planetVisited = false; //has player used planet's unique option
   
   Commodity [] goods = new Commodity[commodityCount];
+  //int [] goodsBuyPrice = new int[commodityCount];
+  Commodity [] storage = new Commodity[commodityCount];
+  //int [] storedGoodsPrice = new int[commodityCount];
   
   int money;
   
@@ -34,6 +37,8 @@ class Merchant
   int zinnInterest = 4;
   int zinnLastPaid = 0;
   
+  int marketProfit;
+  
   int passTax; //tax on passengers
   int stuffTax; //tax on commodities (import and export)
   
@@ -51,7 +56,10 @@ class Merchant
     name = n;
     ship = s;
     for(int i = 0; i < commodityCount; i++)
+    {
       goods[i] = new Commodity(i);
+      storage[i] = new Commodity(i);
+    }
     money = 25000;
     bankAccount = 0;
     loanTotal = 500;
@@ -73,7 +81,10 @@ class Merchant
     shipAvailable[shipIndex]=false;
     
     for(int j = 0; j < commodityCount; j++)
+    {
       goods[j] = new Commodity(j);
+      storage[i] = new Commodity(j);
+    }
     money = 25000;
     bankAccount = 0;
     loanTotal = 0;

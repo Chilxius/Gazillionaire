@@ -22,8 +22,6 @@ class Planet
   
   Commodity [] goods = new Commodity[commodityCount];
   
-  Commodity [] storage = new Commodity[commodityCount];
-  
   int passengersAvailable = int(random(5,10));
   
   int sharesForPurchase = 10;
@@ -36,7 +34,6 @@ class Planet
     for(int i = 0; i < commodityCount; i++)
     {
       goods[i] = new Commodity(i);
-      storage[i] = new Commodity(i);
     }
     name = planetNames[type]; //get name from list
     description = planetDescription[type]; //get description from list
