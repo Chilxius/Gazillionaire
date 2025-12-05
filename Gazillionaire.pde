@@ -40,6 +40,9 @@ import java.util.Collections;
 Screen currentScreen, nextScreen;
 TypingMode typingMode;
 
+//NEW MODE for Display Data
+ScreenManager manager = new ScreenManager();
+
 //Game Data
 int cashGoal = 5000000;
 //difficulty?
@@ -107,6 +110,8 @@ void setup()
 
 void draw()
 {
+  //manager.display();
+  
   switch(currentScreen)
   {
     case TITLE:
@@ -389,6 +394,8 @@ int advertizeCost( int index )
 public void mousePressed()
 {
   println( mouseX + " " + mouseY );
+
+  //manager.checkMouseEvents(mouseX,mouseY);
 
   if( numpadUp )
   {

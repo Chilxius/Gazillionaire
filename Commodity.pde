@@ -1,3 +1,6 @@
+//Represents a supply of a commodity
+//Cargo, market, warehouse
+
 class Commodity
 {
   String name;
@@ -17,6 +20,13 @@ class Commodity
     maxValue = type*40;
     cost = 0;
   }
+  
+  public void add( int a )
+  {
+    
+  }
+  
+  //public int sell
 }
 
 void setupCommodities()
@@ -30,24 +40,24 @@ String commodityName( int t )
   int rand = int(random(2));
   switch( t )
   {
-    case 0: if(rand==0) return "NFTs"; else return "VPNs";
-    case 1: if(rand==0) return "Kobe Beef"; else return "Blue Raspberries";
-    case 2: if(rand==0) return "Trading Cards"; else return "Comic Books";
-    case 3: if(rand==0) return "Concert Tickets"; else return "PlayStation 5s";
-    case 4: if(rand==0) return "Didgeridoos"; else return "Vuvuzelas";
-    case 5: if(rand==0) return "Wedding Cakes"; else return "Crèmes Brûlées";
+    case 0: if(rand==0) return "NFTs";               else return "VPNs";
+    case 1: if(rand==0) return "Kobe Beef";          else return "Blue Raspberries";
+    case 2: if(rand==0) return "Trading Cards";      else return "Comic Books";
+    case 3: if(rand==0) return "Concert Tickets";    else return "PlayStation 5s";
+    case 4: if(rand==0) return "Didgeridoos";        else return "Vuvuzelas";
+    case 5: if(rand==0) return "Wedding Cakes";      else return "Crèmes Brûlées";
     case 6: if(rand==0) return "Blacklight posters"; else return "Disco Balls";
-    case 7: if(rand==0) return "Garden Weasels"; else return "Zambonis";
-    case 8: if(rand==0) return "Covid Vaccines"; else return "Apple Cider Vinegar";
-    case 9: if(rand==0) return "Trapper Keepers"; else return "Tamagotchis";
-    case 10: if(rand==0) return "Doughnuts"; else return "French Toast";
-    case 11: if(rand==0) return "Pocket Squares"; else return "Fake Moustaches";
+    case 7: if(rand==0) return "Garden Weasels";     else return "Zambonis";
+    case 8: if(rand==0) return "Covid Vaccines";     else return "Apple Cider Vinegar";
+    case 9: if(rand==0) return "Trapper Keepers";    else return "Tamagotchis";
+    case 10: if(rand==0) return "Doughnuts";         else return "French Toast";
+    case 11: if(rand==0) return "Pocket Squares";    else return "Fake Moustaches";
     case 12: if(rand==0) return "Betamax Cassettes"; else return "Strobe Lights";
-    case 13: if(rand==0) return "Antiques"; else return "Hula Hoops";
-    case 14: if(rand==0) return "Pot holders"; else return "Koozies";
-    case 15: if(rand==0) return "Paperweights"; else return "Sand";
-    case 16: if(rand==0) return "Kale"; else return "Organic Kale";
-    case 17: if(rand==0) return "Sequins"; else return "Stickers";
+    case 13: if(rand==0) return "Antiques";          else return "Hula Hoops";
+    case 14: if(rand==0) return "Pot holders";       else return "Koozies";
+    case 15: if(rand==0) return "Paperweights";      else return "Sand";
+    case 16: if(rand==0) return "Kale";              else return "Organic Kale";
+    case 17: if(rand==0) return "Sequins";           else return "Stickers";
     default: return "garbage";
   }
 }

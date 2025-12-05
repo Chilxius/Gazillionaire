@@ -35,6 +35,7 @@ class Button
   void drawButton()
   {
     push();
+    
     rectMode(CENTER);
     strokeWeight(2);
     stroke(buttonColor[col][0]);
@@ -60,16 +61,15 @@ class Button
     fill(255);
     textSize(ySize*.75);
     text(text,xPos,yPos+ySize*.25);
+    
     pop();
   }
   
   boolean mouseOnButton()
   {
-    if( mouseX > xPos-xSize/2
-     && mouseX <= xPos+xSize/2
-     && mouseY > yPos-ySize/2
-     && mouseY <= yPos+ySize/2 )
-      return true;
-    return false;
+    return( mouseX >  xPos-xSize/2
+         && mouseX <= xPos+xSize/2
+         && mouseY >  yPos-ySize/2
+         && mouseY <= yPos+ySize/2 );
   }
 }

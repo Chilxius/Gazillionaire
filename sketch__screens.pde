@@ -197,7 +197,7 @@ void setupScreenData()
 void drawTitleScreen()
 {
   push();
-  background(0,200,0);
+  background(0);
   drawStars();
   fill(#EBDC2D);
   textSize(adjustFloat(150,'x')); //100 on 1280
@@ -267,11 +267,11 @@ void drawShipConfirmScreen()
   text(ships[currentShip].name,adjustFloat(975,'x'),adjustFloat(110,'y'));
   textSize( adjustInt(40,'x') );
   textAlign(LEFT);
-  text("Cargo Capacity: ", adjustFloat(700,'x'), adjustFloat(200,'y') );  text(ships[currentShip].cargoCapacity + " tons", adjustFloat(1080,'x'), adjustFloat(200,'y') );
-  text("Engine Power: ", adjustFloat(700,'x'), adjustFloat(250,'y') );    text(ships[currentShip].engine + " xanpars", adjustFloat(1080,'x'), adjustFloat(250,'y') );
-  text("Passenger Rooms: ", adjustFloat(700,'x'), adjustFloat(300,'y') ); text(ships[currentShip].passengerCapacity, adjustFloat(1080,'x'), adjustFloat(300,'y') );
-  text("Fuel Capacity: ", adjustFloat(700,'x'), adjustFloat(350,'y') );   text(ships[currentShip].fuelCapacity + " tons", adjustFloat(1080,'x'), adjustFloat(350,'y') );
-  text("Required Crew: ", adjustFloat(700,'x'), adjustFloat(400,'y') );   text(ships[currentShip].crew, adjustFloat(1080,'x'), adjustFloat(400,'y') );
+  text("Cargo Capacity: ",  adjustFloat(700,'x'), adjustFloat(200,'y') ); text(ships[currentShip].cargoCapacity + " tons", adjustFloat(1080,'x'), adjustFloat(200,'y') );
+  text("Engine Power: ",    adjustFloat(700,'x'), adjustFloat(250,'y') ); text(ships[currentShip].engine + " xanpars",     adjustFloat(1080,'x'), adjustFloat(250,'y') );
+  text("Passenger Rooms: ", adjustFloat(700,'x'), adjustFloat(300,'y') ); text(ships[currentShip].passengerCapacity,       adjustFloat(1080,'x'), adjustFloat(300,'y') );
+  text("Fuel Capacity: ",   adjustFloat(700,'x'), adjustFloat(350,'y') ); text(ships[currentShip].fuelCapacity + " tons",  adjustFloat(1080,'x'), adjustFloat(350,'y') );
+  text("Required Crew: ",   adjustFloat(700,'x'), adjustFloat(400,'y') ); text(ships[currentShip].crew,                    adjustFloat(1080,'x'), adjustFloat(400,'y') );
   rectMode(CORNER);
   textSize( adjustInt(30,'x') );
   text(ships[currentShip].description, adjustFloat(70,'x'), adjustFloat(480,'y'), adjustFloat(1100,'x'),adjustFloat(300,'x'));
